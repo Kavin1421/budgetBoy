@@ -1,0 +1,89 @@
+{
+  "provider": "Airtel",
+  "plans": [
+    {
+      "planId": "AIRTEL_155",
+      "price": 155,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream"],
+      "category": "budget",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "AIRTEL_249",
+      "price": 249,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream", "Wynk Music"],
+      "category": "popular",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "AIRTEL_299",
+      "price": 299,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream", "Amazon Prime Mobile"],
+      "category": "mid-range",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "AIRTEL_359",
+      "price": 359,
+      "validityDays": 28,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 70,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream", "Disney+ Hotstar Mobile"],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "AIRTEL_499",
+      "price": 499,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream", "Netflix Mobile", "Amazon Prime"],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "AIRTEL_FAMILY_1199",
+      "price": 1199,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 600,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream"],
+      "category": "family",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "AIRTEL_YEAR_3199",
+      "price": 3199,
+      "validityDays": 365,
+      "dataPerDayGB": 2,
+      "totalDataGB": 730,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Airtel Xstream", "Wynk Music"],
+      "category": "yearly",
+      "lastUpdated": "2026-01-01"
+    }
+  ]
+}

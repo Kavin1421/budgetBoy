@@ -1,0 +1,89 @@
+{
+  "provider": "Jio",
+  "plans": [
+    {
+      "planId": "JIO_149",
+      "price": 149,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV"],
+      "category": "budget",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "JIO_199",
+      "price": 199,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV", "JioCinema"],
+      "category": "popular",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "JIO_299",
+      "price": 299,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV", "JioCinema", "Netflix Mobile"],
+      "category": "mid-range",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "JIO_399",
+      "price": 399,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV", "JioCinema", "Amazon Prime Lite"],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "JIO_599",
+      "price": 599,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV", "JioCinema", "Netflix", "Amazon Prime"],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "JIO_FAMILY_999",
+      "price": 999,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 560,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV", "JioCinema"],
+      "category": "family",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "JIO_YEAR_2999",
+      "price": 2999,
+      "validityDays": 365,
+      "dataPerDayGB": 2,
+      "totalDataGB": 730,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["JioTV", "JioCinema"],
+      "category": "yearly",
+      "lastUpdated": "2026-01-01"
+    }
+  ]
+}

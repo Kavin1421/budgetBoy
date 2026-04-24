@@ -1,0 +1,89 @@
+{
+  "provider": "BSNL",
+  "plans": [
+    {
+      "planId": "BSNL_147",
+      "price": 147,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Eros Now"],
+      "category": "budget",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "BSNL_199",
+      "price": 199,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "popular",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "BSNL_239",
+      "price": 239,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "BSNL_299",
+      "price": 299,
+      "validityDays": 28,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 70,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "BSNL_399",
+      "price": 399,
+      "validityDays": 30,
+      "dataPerDayGB": 3,
+      "totalDataGB": 90,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "BSNL_FAMILY_899",
+      "price": 899,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 400,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "family",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "BSNL_YEAR_2399",
+      "price": 2399,
+      "validityDays": 365,
+      "dataPerDayGB": 2,
+      "totalDataGB": 730,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-01-01"
+    }
+  ]
+}

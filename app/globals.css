@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bb-teal: #0d9488;
+  --bb-teal-dark: #0f766e;
+  --bb-emerald: #059669;
+  --bb-blue: #0c4a6e;
+  --bb-surface: rgba(255, 255, 255, 0.72);
+  --bb-surface-strong: rgba(255, 255, 255, 0.92);
+  --bb-border: rgba(255, 255, 255, 0.35);
+  --foreground: #0f172a;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #0f766e;
+  background-image:
+    radial-gradient(ellipse 100% 70% at 50% -30%, rgba(45, 212, 191, 0.45), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 10%, rgba(14, 116, 144, 0.35), transparent 50%),
+    radial-gradient(ellipse 55% 45% at 0% 90%, rgba(16, 185, 129, 0.28), transparent 55%),
+    linear-gradient(168deg, #0f766e 0%, #115e59 22%, #134e4a 48%, #164e63 78%, #155e75 100%);
+  background-attachment: fixed;
+}
+
+/* Subtle hex / grid overlay (finance-dashboard vibe) */
+.bb-mesh {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(30deg, rgba(255, 255, 255, 0.06) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.06) 87.5%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.06) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.06) 87.5%);
+  background-size: 52px 90px, 52px 90px;
+}
+
+.bb-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Soft ambient orbs (decorative) */
+@keyframes bb-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(12px, -18px) scale(1.05);
+    opacity: 0.75;
+  }
+}
+
+.bb-orb {
+  animation: bb-float 14s ease-in-out infinite;
+}
+
+.bb-orb-delay {
+  animation-delay: -7s;
+}
+
+/* Glass panel utility */
+.bb-glass {
+  background: var(--bb-surface);
+  border: 1px solid var(--bb-border);
+  box-shadow:
+    0 4px 24px rgba(15, 118, 110, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.bb-glass-strong {
+  background: var(--bb-surface-strong);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Dashboard: light SaaS surface + subtle dot texture */
+.dash-surface {
+  background-color: #eef1ee;
+  background-image:
+    linear-gradient(180deg, rgba(236, 253, 245, 0.55) 0%, transparent 42%),
+    radial-gradient(ellipse 90% 45% at 50% -8%, rgba(16, 185, 129, 0.07), transparent 55%),
+    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.04) 1px, transparent 0);
+  background-size: auto, auto, 22px 22px;
+}
+
+.dashboard-root {
+  background: #f0f3f0;
 }

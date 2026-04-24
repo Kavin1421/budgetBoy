@@ -1,0 +1,89 @@
+{
+  "provider": "VI",
+  "plans": [
+    {
+      "planId": "VI_159",
+      "price": 159,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV"],
+      "category": "budget",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "VI_219",
+      "price": 219,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV", "Sony LIV"],
+      "category": "popular",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "VI_289",
+      "price": 289,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV"],
+      "category": "mid-range",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "VI_349",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 70,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV", "Disney+ Hotstar Mobile"],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "VI_449",
+      "price": 449,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV", "Sony LIV", "Sun NXT"],
+      "category": "heavy",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "VI_FAMILY_999",
+      "price": 999,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 480,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV"],
+      "category": "family",
+      "lastUpdated": "2026-01-01"
+    },
+    {
+      "planId": "VI_YEAR_2899",
+      "price": 2899,
+      "validityDays": 365,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 547,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": ["Vi Movies & TV"],
+      "category": "yearly",
+      "lastUpdated": "2026-01-01"
+    }
+  ]
+}
