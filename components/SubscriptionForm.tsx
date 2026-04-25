@@ -12,7 +12,7 @@ export function SubscriptionForm({ onAdd }: { onAdd: (sub: { name: string; cost:
 
   return (
     <div className="grid gap-3 md:grid-cols-4">
-      <div><Label>Name</Label><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Netflix, YouTube Premium" /></div>
+      <div className="md:col-span-2"><Label>Name</Label><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Netflix, YouTube Premium" /></div>
       <div>
         <Label>Monthly Cost</Label>
         <Input
@@ -25,8 +25,8 @@ export function SubscriptionForm({ onAdd }: { onAdd: (sub: { name: string; cost:
           }}
         />
       </div>
-      <div className="flex items-end gap-2 text-sm"><input type="checkbox" checked={used} onChange={(e) => setUsed(e.target.checked)} /> Actively used</div>
-      <div className="self-end"><Button className="w-full" onClick={() => { if (!name || cost <= 0) return; onAdd({ name, cost, used }); setName(""); }}>Add Subscription</Button></div>
+      <div className="flex items-end gap-2 text-sm md:col-span-1"><input type="checkbox" checked={used} onChange={(e) => setUsed(e.target.checked)} /> Actively used</div>
+      <div className="self-end md:col-span-1"><Button className="w-full" onClick={() => { if (!name || cost <= 0) return; onAdd({ name, cost, used }); setName(""); }}>Add Subscription</Button></div>
     </div>
   );
 }

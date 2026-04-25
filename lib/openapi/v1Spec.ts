@@ -188,6 +188,45 @@ export const openApiV1Document = {
                     scenarioName: { type: "string" },
                     snapshot: { $ref: "#/components/schemas/SharedSnapshot" },
                     createdAt: { type: "string", format: "date-time" },
+                    expiresAt: { type: "string", format: "date-time" },
+                    viewCount: { type: "integer", minimum: 0 },
+                    lastViewedAt: { type: "string", format: "date-time", nullable: true },
+                  },
+                },
+              },
+            },
+          },
+          "400": { $ref: "#/components/responses/BadRequest" },
+          "404": { $ref: "#/components/responses/NotFound" },
+          "500": { $ref: "#/components/responses/ServerError" },
+        },
+      },
+    },
+    "/api/v1/share/{shareId}/revoke": {
+      post: {
+        tags: ["Share"],
+        summary: "Revoke a shared scenario link",
+        parameters: [
+          {
+            name: "shareId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Revoked",
+            headers: { "x-request-id": { schema: { type: "string" } } },
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["shareId", "revoked"],
+                  properties: {
+                    shareId: { type: "string", format: "uuid" },
+                    revoked: { type: "boolean", enum: [true] },
+                    revokedAt: { type: "string", format: "date-time" },
                   },
                 },
               },
@@ -260,6 +299,8 @@ export const openApiV1Document = {
                   "ANALYSIS_FAILED",
                   "SHARE_NOT_FOUND",
                   "SHARE_CREATE_FAILED",
+                  "RATE_LIMITED",
+                  "BOT_BLOCKED",
                 ],
               },
               message: { type: "string" },
@@ -371,6 +412,7 @@ export const openApiV1Document = {
         required: ["scenarioName", "snapshot"],
         properties: {
           scenarioName: { type: "string" },
+          expiresInDays: { type: "integer", enum: [7, 30], description: "Optional expiry window; defaults to 30 days." },
           snapshot: { $ref: "#/components/schemas/SharedSnapshot" },
         },
       },

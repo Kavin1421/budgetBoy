@@ -39,6 +39,7 @@ import { useBudgetStore } from "@/store/useBudgetStore";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
@@ -147,6 +148,7 @@ export default function DashboardPage() {
   const [compareBaseId, setCompareBaseId] = useState<string>("__current__");
   const [compareTargetId, setCompareTargetId] = useState<string>("");
   const [showComparePanel, setShowComparePanel] = useState(false);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const router = useRouter();
   const store = useBudgetStore();
   const hydrated = useSyncExternalStore(
@@ -310,12 +312,11 @@ export default function DashboardPage() {
 
   const deletePlaylist = () => {
     if (!activeScenario) return;
-    const ok = window.confirm(`Delete playlist "${activeScenario.name}"? This cannot be undone.`);
-    if (!ok) return;
     store.deleteScenario(activeScenario.id);
     toast.success("Playlist deleted.");
     setEditingPlaylistName(false);
     setPlaylistNameDraft("");
+    setConfirmDeleteOpen(false);
   };
 
   const openRecharge = (provider: string) => {
@@ -361,6 +362,13 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
+      <ConfirmDialog
+        open={confirmDeleteOpen && Boolean(activeScenario)}
+        title="Delete playlist?"
+        description={activeScenario ? `Delete ${activeScenario.name}? This cannot be undone.` : ""}
+        onCancel={() => setConfirmDeleteOpen(false)}
+        onConfirm={deletePlaylist}
+      />
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -438,7 +446,13 @@ export default function DashboardPage() {
                 <FolderOpen className="h-3.5 w-3.5" />
                 Open in wizard
               </Button>
-              <Button type="button" variant="outline" size="sm" className="w-full gap-1.5 text-rose-700 sm:w-auto" onClick={deletePlaylist}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="w-full gap-1.5 text-rose-700 sm:w-auto"
+                onClick={() => setConfirmDeleteOpen(true)}
+              >
                 <Trash2 className="h-3.5 w-3.5" />
                 Delete
               </Button>
@@ -587,8 +601,8 @@ export default function DashboardPage() {
             <motion.div variants={sectionItem} whileHover={{ y: -2 }} whileTap={{ scale: 0.99 }}>
             <Card className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
               <p className="mb-3 text-sm font-semibold text-slate-900">Cost Breakdown</p>
-              <div className="h-[240px]">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-[240px] min-w-0">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={220}>
                   <PieChart>
                     <defs>
                       <linearGradient id="pieA" x1="0" y1="0" x2="1" y2="1">
@@ -626,8 +640,8 @@ export default function DashboardPage() {
             <motion.div variants={sectionItem} whileHover={{ y: -2 }} whileTap={{ scale: 0.99 }}>
             <Card className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
               <p className="mb-3 text-sm font-semibold text-slate-900">Current vs Optimized</p>
-              <div className="h-[240px]">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-[240px] min-w-0">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={220}>
                   <BarChart data={barData}>
                     <defs>
                       <linearGradient id="barCurrent" x1="0" y1="0" x2="0" y2="1">

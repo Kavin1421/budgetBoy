@@ -2,10 +2,14 @@ import { connectToDB } from "@/lib/mongodb";
 import { User } from "@/models/User";
 import { ApiErrorCodes } from "@/lib/api/errorCodes";
 import type { ApiContext } from "@/lib/api/context";
+import { enforceWriteGuard } from "@/lib/api/guards";
 import { jsonApiError, jsonSuccess } from "@/lib/api/responses";
 import { wizardSchema } from "@/utils/validators";
 
 export async function postUser(req: Request, ctx: ApiContext) {
+  const guardError = enforceWriteGuard(req, ctx, "user");
+  if (guardError) return guardError;
+
   let body: unknown;
   try {
     body = await req.json();

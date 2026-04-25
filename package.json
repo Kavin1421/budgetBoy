@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:plans": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/syncPlans.ts"
+    "sync:plans": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/syncPlans.ts",
+    "migrate:telecom-index": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/migrateTelecomCompoundIndex.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

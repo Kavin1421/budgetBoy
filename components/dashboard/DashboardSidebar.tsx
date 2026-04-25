@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BarChart3, BookOpen, LayoutDashboard, PanelLeftClose, Sparkles, Trash2, Wand2 } from "lucide-react";
 import { useBudgetStore } from "@/store/useBudgetStore";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -18,11 +20,14 @@ const nav = [
 export function DashboardSidebar() {
   const pathname = usePathname();
   const { scenarios, activeScenarioId, setActiveScenario, deleteScenario } = useBudgetStore();
+  const [pendingDelete, setPendingDelete] = useState<{ id: string; name: string } | null>(null);
 
-  const confirmAndDeleteScenario = (id: string, name: string) => {
-    const ok = window.confirm(`Delete playlist "${name}"? This cannot be undone.`);
-    if (!ok) return;
-    deleteScenario(id);
+  const askDeleteScenario = (id: string, name: string) => setPendingDelete({ id, name });
+
+  const confirmDeleteScenario = () => {
+    if (!pendingDelete) return;
+    deleteScenario(pendingDelete.id);
+    setPendingDelete(null);
   };
 
   return (
@@ -97,7 +102,7 @@ export function DashboardSidebar() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => confirmAndDeleteScenario(sc.id, sc.name)}
+                    onClick={() => askDeleteScenario(sc.id, sc.name)}
                     className={cn(
                       "inline-flex h-7 w-7 items-center justify-center rounded-md text-slate-400 transition-all hover:bg-rose-50 hover:text-rose-700",
                       activeScenarioId === sc.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"
@@ -116,6 +121,13 @@ export function DashboardSidebar() {
           </ul>
         </div>
       </nav>
+      <ConfirmDialog
+        open={Boolean(pendingDelete)}
+        title="Delete playlist?"
+        description={pendingDelete ? `Delete ${pendingDelete.name}? This cannot be undone.` : ""}
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={confirmDeleteScenario}
+      />
       <div className="border-t border-slate-100 p-4">
         <p className="flex items-center gap-2 text-xs text-slate-500">
           <PanelLeftClose className="h-3.5 w-3.5" />

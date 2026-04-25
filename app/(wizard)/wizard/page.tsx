@@ -292,10 +292,10 @@ export default function WizardPage() {
                     animate="animate"
                     exit="exit"
                     transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="min-h-[200px] space-y-4"
+                    className="min-h-[200px] space-y-4 pb-24 sm:pb-0"
                   >
                     {step === 0 && (
-                      <div className="grid max-w-2xl gap-4 md:grid-cols-2">
+                      <div className="grid gap-4 md:grid-cols-2">
                         <div>
                           <Label>Plan list name</Label>
                           <Input
@@ -319,7 +319,7 @@ export default function WizardPage() {
                       </div>
                     )}
                     {step === 1 && (
-                      <div className="max-w-md">
+                      <div className="w-full max-w-md">
                         <Label>City (network quality)</Label>
                         <Select value={store.city} onChange={(e) => store.setCity(e.target.value as (typeof INDIAN_CITIES)[number])}>
                           {INDIAN_CITIES.map((c) => (
@@ -644,7 +644,7 @@ export default function WizardPage() {
                       </div>
                     )}
                     {step === 5 && (
-                      <div className="max-w-sm">
+                      <div className="w-full max-w-sm">
                         <Label>Monthly income (optional, ₹)</Label>
                         <Input
                           type="number"
@@ -699,24 +699,34 @@ export default function WizardPage() {
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="mt-10 flex flex-col-reverse gap-3 border-t border-slate-200/80 pt-8 sm:flex-row sm:items-center sm:justify-between">
-                  <Button variant="muted" className="w-full sm:w-auto" disabled={step === 0} onClick={() => setStep((s) => Math.max(s - 1, 0))}>
-                    Back
+                <div className="sticky bottom-0 z-20 -mx-1 mt-8 flex flex-col-reverse gap-3 border-t border-slate-200/90 bg-white px-1 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-4 shadow-[0_-8px_20px_-16px_rgba(15,23,42,0.35)] sm:static sm:mx-0 sm:bg-transparent sm:px-0 sm:pb-0 sm:pt-8 sm:shadow-none sm:flex-row sm:items-center sm:justify-between">
+                  <Button
+                    variant="muted"
+                    className="h-11 w-full justify-center text-sm font-semibold !text-slate-900 sm:w-auto"
+                    disabled={step === 0}
+                    onClick={() => setStep((s) => Math.max(s - 1, 0))}
+                  >
+                    <span className="!text-slate-900">Back</span>
                   </Button>
                   {step < steps.length - 1 ? (
                     <Button
                       type="button"
                       disabled={!canGoNext}
                       onClick={goNext}
-                      className="w-full gap-2 shadow-md shadow-emerald-900/10 sm:w-auto"
+                      className="h-11 w-full justify-center gap-2 text-sm font-semibold !text-white shadow-md shadow-emerald-900/15 sm:w-auto"
                     >
-                      Continue
+                      <span className="!text-white">Continue</span>
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   ) : (
-                    <Button variant="success" disabled={!canSubmit || submitting} onClick={submit} className="w-full gap-2 shadow-md sm:w-auto">
+                    <Button
+                      variant="success"
+                      disabled={!canSubmit || submitting}
+                      onClick={submit}
+                      className="h-11 w-full justify-center gap-2 text-sm font-semibold !text-white shadow-md sm:w-auto"
+                    >
                       {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-                      Submit &amp; analyze
+                      <span className="!text-white">Submit &amp; analyze</span>
                     </Button>
                   )}
                 </div>

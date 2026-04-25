@@ -25,7 +25,7 @@ export function SiteHeader() {
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/25 backdrop-blur-xl"
     >
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:h-16">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 px-3 sm:px-4 md:h-16">
         <Link href="/" className="group flex items-center gap-2 font-semibold tracking-tight text-white">
           <span className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-xl bg-white/10 shadow-lg shadow-teal-900/25 ring-1 ring-white/25">
             <Image src="/budget.png" alt="BudgetBoy" width={36} height={36} className="object-contain p-0.5" priority />
@@ -34,7 +34,7 @@ export function SiteHeader() {
             Budget<span className="text-teal-200">Boy</span>
           </span>
         </Link>
-        <nav className="flex items-center gap-1 overflow-x-auto md:gap-2">
+        <nav className="flex max-w-[62vw] items-center gap-1 overflow-x-auto md:max-w-none md:gap-2">
           {links.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || (href !== "/" && pathname.startsWith(href));
             return (
@@ -42,14 +42,14 @@ export function SiteHeader() {
                 key={href}
                 href={href}
                 className={cn(
-                  "flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-medium transition md:px-3 md:text-sm",
+                  "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-2 text-[11px] font-medium transition sm:px-2.5 sm:text-xs md:px-3 md:text-sm",
                   active
                     ? "bg-white/15 text-white shadow-inner ring-1 ring-white/20"
                     : "text-white/75 hover:bg-white/10 hover:text-white"
                 )}
               >
                 {Icon ? <Icon className="h-3.5 w-3.5 opacity-90" /> : null}
-                {label}
+                <span className="max-[390px]:hidden">{label}</span>
               </Link>
             );
           })}

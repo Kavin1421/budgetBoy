@@ -2,10 +2,14 @@ import { analyzeBudgetFromDb } from "@/lib/optimizerServer";
 import { generateAISuggestions } from "@/lib/openai";
 import { ApiErrorCodes } from "@/lib/api/errorCodes";
 import type { ApiContext } from "@/lib/api/context";
+import { enforceWriteGuard } from "@/lib/api/guards";
 import { jsonApiError, jsonSuccess } from "@/lib/api/responses";
 import { wizardSchema } from "@/utils/validators";
 
 export async function postAnalyze(req: Request, ctx: ApiContext) {
+  const guardError = enforceWriteGuard(req, ctx, "analyze");
+  if (guardError) return guardError;
+
   let body: unknown;
   try {
     body = await req.json();

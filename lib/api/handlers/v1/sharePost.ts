@@ -4,10 +4,12 @@ import { connectToDB } from "@/lib/mongodb";
 import { SharedScenario } from "@/models/SharedScenario";
 import { ApiErrorCodes } from "@/lib/api/errorCodes";
 import type { ApiContext } from "@/lib/api/context";
+import { enforceWriteGuard } from "@/lib/api/guards";
 import { jsonApiError, jsonSuccess } from "@/lib/api/responses";
 
 const shareCreateSchema = z.object({
   scenarioName: z.string().trim().min(1).max(120),
+  expiresInDays: z.union([z.literal(7), z.literal(30)]).optional(),
   snapshot: z.object({
     currentCost: z.number(),
     optimizedCost: z.number(),
@@ -20,6 +22,9 @@ const shareCreateSchema = z.object({
 });
 
 export async function postShare(req: Request, ctx: ApiContext) {
+  const guardError = enforceWriteGuard(req, ctx, "share");
+  if (guardError) return guardError;
+
   let body: unknown;
   try {
     body = await req.json();
@@ -37,12 +42,17 @@ export async function postShare(req: Request, ctx: ApiContext) {
   try {
     await connectToDB();
     const shareId = randomUUID();
+    const expiresInDays = parsed.data.expiresInDays ?? 30;
+    const expiresAt = new Date(Date.now() + expiresInDays * 24 * 60 * 60 * 1000);
     await SharedScenario.create({
       shareId,
       scenarioName: parsed.data.scenarioName,
       snapshot: parsed.data.snapshot,
+      expiresAt,
+      revoked: false,
+      viewCount: 0,
     });
-    return jsonSuccess({ shareId, success: true }, ctx.requestId, 201);
+    return jsonSuccess({ shareId, expiresAt, success: true }, ctx.requestId, 201);
   } catch (e) {
     const message = e instanceof Error ? e.message : "Failed to create share link";
     ctx.log.error("share_create_failed", { err: message });

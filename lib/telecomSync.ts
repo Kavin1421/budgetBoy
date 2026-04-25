@@ -34,7 +34,7 @@ function toDoc(p: CatalogTelecomPlan, fileProvider: string) {
 }
 
 /**
- * Read all JSON files under data/telecom, validate, upsert by planId.
+ * Read all JSON files under data/telecom, validate, upsert by provider+planId.
  * Optionally removes DB rows for a provider when that provider's file no longer lists a planId.
  */
 export async function syncTelecomPlans(options?: { removeDeprecated?: boolean }): Promise<SyncResult> {
@@ -74,7 +74,7 @@ export async function syncTelecomPlans(options?: { removeDeprecated?: boolean })
       ids.add(p.planId);
       const doc = toDoc({ ...p, provider }, provider);
       await TelecomCatalogPlan.updateOne(
-        { planId: doc.planId },
+        { provider: doc.provider, planId: doc.planId },
         { $set: doc },
         { upsert: true }
       );

@@ -22,7 +22,15 @@ export default async function SharedScenarioPage({ params }: SharePageProps) {
   }
 
   const doc = normalizedShareId
-    ? await SharedScenario.findOne({ shareId: normalizedShareId }).lean<{
+    ? await SharedScenario.findOneAndUpdate(
+        {
+          shareId: normalizedShareId,
+          revoked: { $ne: true },
+          expiresAt: { $gt: new Date() },
+        },
+        { $inc: { viewCount: 1 }, $set: { lastViewedAt: new Date() } },
+        { new: true }
+      ).lean<{
     scenarioName: string;
     snapshot: {
       currentCost: number;
@@ -34,6 +42,7 @@ export default async function SharedScenarioPage({ params }: SharePageProps) {
       suggestions?: string[];
     };
     createdAt?: string;
+    expiresAt?: string;
   } | null>()
     : null;
 

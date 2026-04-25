@@ -11,6 +11,8 @@ export const ApiErrorCodes = {
   ANALYSIS_FAILED: "ANALYSIS_FAILED",
   SHARE_NOT_FOUND: "SHARE_NOT_FOUND",
   SHARE_CREATE_FAILED: "SHARE_CREATE_FAILED",
+  RATE_LIMITED: "RATE_LIMITED",
+  BOT_BLOCKED: "BOT_BLOCKED",
 } as const;
 
 export type ApiErrorCode = (typeof ApiErrorCodes)[keyof typeof ApiErrorCodes];

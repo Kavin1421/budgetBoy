@@ -192,11 +192,11 @@ export function MemberForm({ onAdd }: { onAdd: (member: MemberMobileLine) => voi
             <option value="balanced">Balanced</option>
           </Select>
         </div>
-        <div className="flex items-end gap-2 text-sm">
+        <div className="flex items-end gap-2 text-sm sm:col-span-2 lg:col-span-1">
           <input id="needs-ott" type="checkbox" checked={needsOtt} onChange={(e) => setNeedsOtt(e.target.checked)} />
           <Label htmlFor="needs-ott">Needs OTT benefits</Label>
         </div>
-        <div className="flex items-end">
+        <div className="flex items-end sm:col-span-2 lg:col-span-1">
           <Button type="button" className="w-full" onClick={submit}>
             Add member
           </Button>

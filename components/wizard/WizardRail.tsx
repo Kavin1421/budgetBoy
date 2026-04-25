@@ -27,7 +27,7 @@ export function WizardRail({
               if (i <= currentStep) onSelect?.(i);
             }}
             className={cn(
-              "group relative flex min-w-[140px] shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors lg:min-w-0 lg:px-3 lg:py-3",
+              "group relative flex min-w-[116px] shrink-0 items-center gap-2 rounded-xl px-2.5 py-2 text-left transition-colors lg:min-w-0 lg:gap-3 lg:px-3 lg:py-3",
               active && "bg-emerald-50 text-emerald-950 shadow-sm ring-1 ring-emerald-100",
               done && !active && "text-slate-600 hover:bg-slate-50",
               !done && !active && "text-slate-400"
@@ -52,7 +52,7 @@ export function WizardRail({
             </span>
             <span className="flex flex-col">
               <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Step {i + 1}</span>
-              <span className="text-sm font-semibold leading-snug">{label}</span>
+              <span className="text-xs font-semibold leading-snug lg:text-sm">{label}</span>
             </span>
           </button>
         );

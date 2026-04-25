@@ -3,7 +3,7 @@ import { model, models, Schema } from "mongoose";
 const telecomCatalogPlanSchema = new Schema(
   {
     provider: { type: String, required: true, index: true },
-    planId: { type: String, required: true, unique: true },
+    planId: { type: String, required: true },
     price: { type: Number, required: true, index: true },
     validityDays: { type: Number, required: true },
     dataPerDayGB: { type: Number, required: true, index: true },
@@ -19,6 +19,7 @@ const telecomCatalogPlanSchema = new Schema(
 
 telecomCatalogPlanSchema.index({ provider: 1, price: 1 });
 telecomCatalogPlanSchema.index({ provider: 1, dataPerDayGB: 1 });
+telecomCatalogPlanSchema.index({ provider: 1, planId: 1 }, { unique: true });
 
 export const TelecomCatalogPlan =
   models.TelecomCatalogPlan || model("TelecomCatalogPlan", telecomCatalogPlanSchema);
