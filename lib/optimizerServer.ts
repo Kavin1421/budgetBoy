@@ -13,6 +13,11 @@ import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
 import { getNetworkQuality } from "@/lib/cityNetworkScore";
 import { actualUsageToGB, planDataPerDayToGB } from "@/lib/memberPlanUtils";
 
+type RecommendationTuning = {
+  providerTuning?: Record<string, number>;
+  planTuning?: Record<string, number>;
+};
+
 function intentBaselineUsage(intent: WizardInput["members"][number]["rechargeIntent"]): number {
   if (intent === "calls-only" || intent === "senior-basic") return 0.5;
   if (intent === "data-only" || intent === "both-balanced") return 1.2;
@@ -25,7 +30,8 @@ function scorePlan(
   usageGB: number,
   city: string,
   member: WizardInput["members"][number],
-  currentMonthly: number
+  currentMonthly: number,
+  tuning?: RecommendationTuning
 ): number {
   const m = monthlyEquivalent(p);
   const intentUsage = intentBaselineUsage(member.rechargeIntent);
@@ -42,7 +48,9 @@ function scorePlan(
       : member.priority === "best-network"
         ? 0.9 + netW * 0.3
         : 1;
-  return (priceW * 2.2 + dataMatch * 1.7 + netW * 1.45 * rightSized) * ottNeed * callNeed * priorityBoost;
+  const providerBoost = tuning?.providerTuning?.[p.provider] ?? 1;
+  const planBoost = tuning?.planTuning?.[p.planId] ?? 1;
+  return (priceW * 2.2 + dataMatch * 1.7 + netW * 1.45 * rightSized) * ottNeed * callNeed * priorityBoost * providerBoost * planBoost;
 }
 
 function fitScore(member: WizardInput["members"][number], dataGB: number, monthly: number, networkScore: number, hasOtt: boolean): number {
@@ -65,7 +73,8 @@ function optimizeMember(
   member: WizardInput["members"][number],
   index: number,
   city: string,
-  catalog: CatalogTelecomPlan[]
+  catalog: CatalogTelecomPlan[],
+  tuning?: RecommendationTuning
 ): MemberOptimizationResult {
   const validityDays = Number(member.validity) || 28;
   const currentMonthly = monthlyEquivalentFromRecharge(member.currentPlanPrice, validityDays);
@@ -83,7 +92,7 @@ function optimizeMember(
   if (!pool.length) pool = sameProv;
 
   const scored = pool
-    .map((p) => ({ p, s: scorePlan(p, usageGB, city, member, currentMonthly) }))
+    .map((p) => ({ p, s: scorePlan(p, usageGB, city, member, currentMonthly, tuning) }))
     .sort((a, b) => {
       if (b.s !== a.s) return b.s - a.s;
       return monthlyEquivalent(a.p) - monthlyEquivalent(b.p);
@@ -210,7 +219,7 @@ function toPlanRec(m: MemberOptimizationResult): PlanRecommendation {
 }
 
 /** Full analysis using MongoDB catalog (server-only). */
-export async function analyzeBudgetFromDb(input: WizardInput): Promise<OptimizationResult> {
+export async function analyzeBudgetFromDb(input: WizardInput, tuning?: RecommendationTuning): Promise<OptimizationResult> {
   const providers = [...new Set(input.members.map((m) => m.provider))];
   logger.info("analyze_budget_from_db", {
     city: input.city,
@@ -228,7 +237,7 @@ export async function analyzeBudgetFromDb(input: WizardInput): Promise<Optimizat
     if (!catalog.length) catalog = await getCatalogPlansFromDb();
   }
 
-  const memberOptimizations = input.members.map((m, i) => optimizeMember(m, i, input.city, catalog));
+  const memberOptimizations = input.members.map((m, i) => optimizeMember(m, i, input.city, catalog, tuning));
 
   const telecomSavings = memberOptimizations.reduce((s, m) => s + m.savings, 0);
   const plansMonthly = input.members.reduce(

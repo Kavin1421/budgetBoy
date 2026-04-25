@@ -8,6 +8,7 @@ export async function generateAISuggestions(data: WizardInput): Promise<string[]
   }
 
   try {
+    const startedAt = Date.now();
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const prompt = `Suggest cost optimization for telecom and subscriptions in India for this user: ${JSON.stringify(data)}. Return 3 short bullet suggestions.`;
 
@@ -17,11 +18,13 @@ export async function generateAISuggestions(data: WizardInput): Promise<string[]
     });
 
     const text = response.output_text || "";
-    return text
+    const suggestions = text
       .split("\n")
       .map((line) => line.replace(/^[-*\d.\s]+/, "").trim())
       .filter(Boolean)
       .slice(0, 3);
+    logger.info("openai_suggestions_ok", { count: suggestions.length, durationMs: Date.now() - startedAt });
+    return suggestions;
   } catch (e) {
     logger.warn("openai_suggestions_failed", { err: e instanceof Error ? e.message : String(e) });
     return [];

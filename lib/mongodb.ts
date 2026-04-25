@@ -20,7 +20,13 @@ export async function connectToDB() {
   const mongoUrl = MONGO_URL;
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
+    const startedAt = Date.now();
     cached.promise = mongoose.connect(mongoUrl, { dbName: DB_NAME });
+    cached.promise
+      .then(() => {
+        logger.info("mongoose_connect_ok", { durationMs: Date.now() - startedAt, dbName: DB_NAME });
+      })
+      .catch(() => undefined);
   }
   try {
     cached.conn = await cached.promise;

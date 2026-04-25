@@ -15,9 +15,22 @@ export type SavedScenario = {
   analysis: OptimizationResult | null;
 };
 
+export type SavedShareLink = {
+  shareId: string;
+  scenarioId?: string;
+  scenarioName: string;
+  createdAt: string;
+  expiresAt: string;
+  revoked?: boolean;
+  revokedAt?: string | null;
+  viewCount?: number;
+  lastViewedAt?: string | null;
+};
+
 type StoreState = WizardInput & {
   lastAnalysis: OptimizationResult | null;
   scenarios: SavedScenario[];
+  shareLinks: SavedShareLink[];
   activeScenarioId?: string;
   currentScenarioName: string;
   setLastAnalysis: (result: OptimizationResult | null) => void;
@@ -33,6 +46,8 @@ type StoreState = WizardInput & {
   removeSubscription: (index: number) => void;
   setIncome: (income?: number) => void;
   saveScenarioFromCurrent: (analysis?: OptimizationResult | null) => string;
+  addShareLink: (link: SavedShareLink) => void;
+  updateShareLink: (shareId: string, patch: Partial<SavedShareLink>) => void;
   setActiveScenario: (id?: string) => void;
   renameScenario: (id: string, name: string) => void;
   deleteScenario: (id: string) => void;
@@ -44,6 +59,7 @@ type StoreState = WizardInput & {
 const initialState: WizardInput & {
   lastAnalysis: OptimizationResult | null;
   scenarios: SavedScenario[];
+  shareLinks: SavedShareLink[];
   activeScenarioId?: string;
   currentScenarioName: string;
 } = {
@@ -68,6 +84,7 @@ const initialState: WizardInput & {
   wifi: { cost: 0, usageType: "moderate" },
   income: undefined,
   scenarios: [],
+  shareLinks: [],
   activeScenarioId: undefined,
   currentScenarioName: "My family plan",
   lastAnalysis: null,
@@ -116,6 +133,14 @@ export const useBudgetStore = create<StoreState>()(
         }));
         return scenario.id;
       },
+      addShareLink: (link) =>
+        set((state) => ({
+          shareLinks: [link, ...state.shareLinks.filter((x) => x.shareId !== link.shareId)].slice(0, 60),
+        })),
+      updateShareLink: (shareId, patch) =>
+        set((state) => ({
+          shareLinks: state.shareLinks.map((x) => (x.shareId === shareId ? { ...x, ...patch } : x)),
+        })),
       setActiveScenario: (id) => set({ activeScenarioId: id }),
       renameScenario: (id, name) =>
         set((state) => ({
@@ -153,6 +178,24 @@ export const useBudgetStore = create<StoreState>()(
         return optimizeBudgetPreview(s);
       },
     }),
-    { name: "budgetboy-store-v3" }
+    {
+      name: "budgetboy-store-v3",
+      merge: (persistedState, currentState) => {
+        const state = (persistedState ?? {}) as Partial<StoreState> & {
+          playlists?: SavedScenario[];
+          activePlaylistId?: string;
+          currentPlaylistName?: string;
+          sharedLinks?: SavedShareLink[];
+        };
+        return {
+          ...currentState,
+          ...state,
+          scenarios: Array.isArray(state.scenarios) ? state.scenarios : Array.isArray(state.playlists) ? state.playlists : [],
+          shareLinks: Array.isArray(state.shareLinks) ? state.shareLinks : Array.isArray(state.sharedLinks) ? state.sharedLinks : [],
+          activeScenarioId: state.activeScenarioId ?? state.activePlaylistId ?? undefined,
+          currentScenarioName: state.currentScenarioName ?? state.currentPlaylistName ?? initialState.currentScenarioName,
+        };
+      },
+    }
   )
 );

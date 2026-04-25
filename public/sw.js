@@ -1,4 +1,4 @@
-const CACHE_NAME = "budgetboy-cache-v1";
+const CACHE_NAME = "budgetboy-cache-v2";
 const CORE_ROUTES = [
   "/",
   "/wizard",
@@ -34,6 +34,8 @@ self.addEventListener("fetch", (event) => {
 
   // Keep APIs network-first; don't serve stale responses for mutations.
   if (url.pathname.startsWith("/api/")) return;
+  // Never cache Next.js build assets; stale JS causes hydration mismatches.
+  if (url.pathname.startsWith("/_next/")) return;
 
   if (request.mode === "navigate") {
     event.respondWith(
@@ -48,7 +50,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  const isStaticLike = ["style", "script", "image", "font"].includes(request.destination);
+  const isStaticLike = ["style", "image", "font"].includes(request.destination);
   if (!isStaticLike) return;
 
   event.respondWith(

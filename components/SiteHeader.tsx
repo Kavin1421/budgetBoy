@@ -34,7 +34,7 @@ export function SiteHeader() {
             Budget<span className="text-teal-200">Boy</span>
           </span>
         </Link>
-        <nav className="flex max-w-[62vw] items-center gap-1 overflow-x-auto md:max-w-none md:gap-2">
+        <nav className="hidden max-w-[62vw] items-center gap-1 overflow-x-auto md:flex md:max-w-none md:gap-2">
           {links.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || (href !== "/" && pathname.startsWith(href));
             return (
@@ -54,6 +54,14 @@ export function SiteHeader() {
             );
           })}
         </nav>
+        <div className="flex items-center gap-1 md:hidden">
+          <Link
+            href={pathname.startsWith("/wizard") ? "/dashboard" : "/wizard"}
+            className="rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-semibold text-white ring-1 ring-white/15"
+          >
+            {pathname.startsWith("/wizard") ? "Dashboard" : "Wizard"}
+          </Link>
+        </div>
       </div>
     </motion.header>
   );

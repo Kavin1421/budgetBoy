@@ -70,7 +70,9 @@ export function DashboardSidebar() {
           </div>
         ))}
         <div>
-          <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Playlists</p>
+          <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400" suppressHydrationWarning>
+            Scenarios
+          </p>
           <ul className="space-y-1">
             <li>
               <button
@@ -107,8 +109,8 @@ export function DashboardSidebar() {
                       "inline-flex h-7 w-7 items-center justify-center rounded-md text-slate-400 transition-all hover:bg-rose-50 hover:text-rose-700",
                       activeScenarioId === sc.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                     )}
-                    aria-label={`Delete playlist ${sc.name}`}
-                    title="Delete playlist"
+                    aria-label={`Delete scenario ${sc.name}`}
+                    title="Delete scenario"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -116,14 +118,14 @@ export function DashboardSidebar() {
               </li>
             ))}
             {scenarios.length === 0 ? (
-              <li className="px-3 py-2 text-xs text-slate-400">No saved playlists yet. Complete wizard to save one.</li>
+              <li className="px-3 py-2 text-xs text-slate-400">No saved scenarios yet. Complete wizard to save one.</li>
             ) : null}
           </ul>
         </div>
       </nav>
       <ConfirmDialog
         open={Boolean(pendingDelete)}
-        title="Delete playlist?"
+        title="Delete scenario?"
         description={pendingDelete ? `Delete ${pendingDelete.name}? This cannot be undone.` : ""}
         onCancel={() => setPendingDelete(null)}
         onConfirm={confirmDeleteScenario}

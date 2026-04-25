@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -17,6 +17,8 @@ import {
   FolderOpen,
   GitCompareArrows,
   Link2,
+  Loader2,
+  RefreshCcw,
   PiggyBank,
   Pencil,
   Target,
@@ -46,7 +48,7 @@ import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
 import { optimizeBudgetPreview } from "@/lib/optimizerPreview";
 import { monthlyEquivalent } from "@/lib/telecomPlanQuery";
 import type { MemberOptimizationResult, OptimizationResult } from "@/lib/optimizerTypes";
-import type { SavedScenario } from "@/store/useBudgetStore";
+import type { SavedScenario, SavedShareLink } from "@/store/useBudgetStore";
 
 const RECHARGE_LINKS: Record<string, string> = {
   Jio: "https://www.jio.com/selfcare/recharge/",
@@ -104,6 +106,10 @@ type ScenarioSnapshot = {
   updatedAtLabel: string;
 };
 
+type ShareManageItem = SavedShareLink & {
+  shareUrl: string;
+};
+
 function snapshotFromAnalysis(id: string, name: string, analysis: OptimizationResult, members: number, subscriptions: number, updatedAtLabel: string): ScenarioSnapshot {
   const memberRows = normalizeMemberRows(analysis.memberOptimizations ?? []);
   const avoidableWaste = memberRows.reduce(
@@ -142,13 +148,16 @@ function snapshotFromScenario(scenario: SavedScenario): ScenarioSnapshot {
 
 export default function DashboardPage() {
   const [range, setRange] = useState<"daily" | "weekly">("daily");
-  const [editingPlaylistName, setEditingPlaylistName] = useState(false);
-  const [playlistNameDraft, setPlaylistNameDraft] = useState("");
+  const [editingScenarioName, setEditingScenarioName] = useState(false);
+  const [scenarioNameDraft, setScenarioNameDraft] = useState("");
   const [expandedMember, setExpandedMember] = useState<number | null>(0);
   const [compareBaseId, setCompareBaseId] = useState<string>("__current__");
   const [compareTargetId, setCompareTargetId] = useState<string>("");
   const [showComparePanel, setShowComparePanel] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [shareExpiryPreset, setShareExpiryPreset] = useState<7 | 30>(30);
+  const [sharesLoading, setSharesLoading] = useState(false);
+  const [showAdvancedInsights, setShowAdvancedInsights] = useState(false);
   const router = useRouter();
   const store = useBudgetStore();
   const hydrated = useSyncExternalStore(
@@ -163,48 +172,65 @@ export default function DashboardPage() {
     () => useBudgetStore.persist.hasHydrated(),
     () => false
   );
-  const activeScenario = store.scenarios.find((sc) => sc.id === store.activeScenarioId);
-  const dashboardData = activeScenario?.data ?? {
-    mode: store.mode,
-    city: store.city,
-    members: store.members,
-    subscriptions: store.subscriptions,
-    wifi: store.wifi,
-    income: store.income,
-  };
-  const result = activeScenario?.analysis ?? store.getOptimization();
-
-  const yearly = result.currentCost * 12;
-  const optYearly = result.optimizedCost * 12;
-
-  const plansCost = dashboardData.members.reduce(
-    (sum, m) => sum + monthlyEquivalentFromRecharge(m.currentPlanPrice, Number(m.validity) || 28),
-    0
+  const chartsReady = hydrated;
+  const activeScenario = useMemo(
+    () => store.scenarios.find((sc) => sc.id === store.activeScenarioId),
+    [store.scenarios, store.activeScenarioId]
   );
-  const subsCost = dashboardData.subscriptions.reduce((sum, s) => sum + s.cost, 0);
-
-  const memberRows: MemberOptimizationResult[] = normalizeMemberRows(
-    result.memberOptimizations?.length ? result.memberOptimizations : []
+  const dashboardData = useMemo(
+    () =>
+      activeScenario?.data ?? {
+        mode: store.mode,
+        city: store.city,
+        members: store.members,
+        subscriptions: store.subscriptions,
+        wifi: store.wifi,
+        income: store.income,
+      },
+    [activeScenario, store.mode, store.city, store.members, store.subscriptions, store.wifi, store.income]
   );
-  const avoidableWaste = memberRows.reduce(
-    (sum, r) =>
-      sum +
-      r.wasteBreakdown.unusedDataCost +
-      r.wasteBreakdown.overSpecCost +
-      r.wasteBreakdown.networkPenaltyCost +
-      r.wasteBreakdown.ottMismatchCost,
-    0
+  const result = useMemo(() => activeScenario?.analysis ?? store.getOptimization(), [activeScenario, store]);
+
+  const yearly = useMemo(() => result.currentCost * 12, [result.currentCost]);
+  const optYearly = useMemo(() => result.optimizedCost * 12, [result.optimizedCost]);
+
+  const plansCost = useMemo(
+    () => dashboardData.members.reduce((sum, m) => sum + monthlyEquivalentFromRecharge(m.currentPlanPrice, Number(m.validity) || 28), 0),
+    [dashboardData.members]
+  );
+  const subsCost = useMemo(() => dashboardData.subscriptions.reduce((sum, s) => sum + s.cost, 0), [dashboardData.subscriptions]);
+
+  const memberRows: MemberOptimizationResult[] = useMemo(
+    () => normalizeMemberRows(result.memberOptimizations?.length ? result.memberOptimizations : []),
+    [result.memberOptimizations]
+  );
+  const avoidableWaste = useMemo(
+    () =>
+      memberRows.reduce(
+        (sum, r) =>
+          sum +
+          r.wasteBreakdown.unusedDataCost +
+          r.wasteBreakdown.overSpecCost +
+          r.wasteBreakdown.networkPenaltyCost +
+          r.wasteBreakdown.ottMismatchCost,
+        0
+      ),
+    [memberRows]
   );
   const displayName = dashboardData.members[0]?.name?.trim() || "there";
   const firstName = displayName.includes(" ") ? displayName.split(/\s+/)[0] : displayName;
   const titleName = activeScenario?.name || store.currentScenarioName || `${firstName} plan`;
-  const currentSnapshot = snapshotFromAnalysis(
-    "__current__",
-    `${titleName} (current view)`,
-    result,
-    dashboardData.members.length,
-    dashboardData.subscriptions.length,
-    "Now"
+  const currentSnapshot = useMemo(
+    () =>
+      snapshotFromAnalysis(
+        "__current__",
+        `${titleName} (current view)`,
+        result,
+        dashboardData.members.length,
+        dashboardData.subscriptions.length,
+        "Now"
+      ),
+    [titleName, result, dashboardData.members.length, dashboardData.subscriptions.length]
   );
   const compareBaseScenario = compareBaseId === "__current__" ? null : store.scenarios.find((sc) => sc.id === compareBaseId);
   const compareBaseSnapshot = compareBaseScenario ? snapshotFromScenario(compareBaseScenario) : currentSnapshot;
@@ -221,6 +247,52 @@ export default function DashboardPage() {
         ? snapshotFromScenario(compareTargetScenario)
         : null;
 
+  const shareItems: ShareManageItem[] = useMemo(() => {
+    if (typeof window === "undefined") return [];
+    return store.shareLinks.map((s) => ({
+      ...s,
+      shareUrl: `${window.location.origin}/share/${s.shareId}`,
+    }));
+  }, [store.shareLinks]);
+
+  const refreshShareStats = async () => {
+    if (!store.shareLinks.length) return;
+    setSharesLoading(true);
+    try {
+      const res = await fetch("/api/v1/share/manage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ shareIds: store.shareLinks.map((s) => s.shareId) }),
+      });
+      if (!res.ok) return;
+      const payload = (await res.json()) as {
+        shares?: Array<{
+          shareId: string;
+          scenarioName: string;
+          createdAt: string;
+          expiresAt: string;
+          revoked: boolean;
+          revokedAt: string | null;
+          viewCount: number;
+          lastViewedAt: string | null;
+        }>;
+      };
+      for (const item of payload.shares ?? []) {
+        store.updateShareLink(item.shareId, {
+          scenarioName: item.scenarioName,
+          createdAt: item.createdAt,
+          expiresAt: item.expiresAt,
+          revoked: item.revoked,
+          revokedAt: item.revokedAt,
+          viewCount: item.viewCount,
+          lastViewedAt: item.lastViewedAt,
+        });
+      }
+    } finally {
+      setSharesLoading(false);
+    }
+  };
+
   const shareScenarioLink = async () => {
     try {
       const res = await fetch("/api/v1/share", {
@@ -228,6 +300,7 @@ export default function DashboardPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           scenarioName: activeScenario?.name || titleName,
+          expiresInDays: shareExpiryPreset,
           snapshot: {
             currentCost: result.currentCost,
             optimizedCost: result.optimizedCost,
@@ -245,11 +318,22 @@ export default function DashboardPage() {
         return;
       }
 
-      const payload = (await res.json()) as { shareId?: string };
+      const payload = (await res.json()) as { shareId?: string; expiresAt?: string };
       if (!payload.shareId) {
         toast.error("Invalid share response.");
         return;
       }
+      const createdAt = new Date().toISOString();
+      store.addShareLink({
+        shareId: payload.shareId,
+        scenarioId: activeScenario?.id,
+        scenarioName: activeScenario?.name || titleName,
+        createdAt,
+        expiresAt: payload.expiresAt ?? new Date(Date.now() + shareExpiryPreset * 24 * 60 * 60 * 1000).toISOString(),
+        revoked: false,
+        viewCount: 0,
+        lastViewedAt: null,
+      });
 
       const shareUrl = `${window.location.origin}/share/${payload.shareId}`;
       try {
@@ -267,7 +351,7 @@ export default function DashboardPage() {
 
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(shareUrl);
-        toast.success("Share link copied.");
+        toast.success("Share link copied and saved.");
         return;
       }
       toast.message(shareUrl);
@@ -287,39 +371,62 @@ export default function DashboardPage() {
     }, 80);
   };
 
-  const beginRenamePlaylist = () => {
+  const beginRenameScenario = () => {
     if (!activeScenario) return;
-    setPlaylistNameDraft(activeScenario.name);
-    setEditingPlaylistName(true);
+    setScenarioNameDraft(activeScenario.name);
+    setEditingScenarioName(true);
   };
 
-  const cancelRenamePlaylist = () => {
-    setEditingPlaylistName(false);
-    setPlaylistNameDraft("");
+  const cancelRenameScenario = () => {
+    setEditingScenarioName(false);
+    setScenarioNameDraft("");
   };
 
-  const saveRenamePlaylist = () => {
+  const saveRenameScenario = () => {
     if (!activeScenario) return;
-    const nextName = playlistNameDraft.trim();
+    const nextName = scenarioNameDraft.trim();
     if (!nextName) {
-      toast.error("Playlist name cannot be empty.");
+      toast.error("Scenario name cannot be empty.");
       return;
     }
     store.renameScenario(activeScenario.id, nextName);
-    toast.success("Playlist name updated.");
-    cancelRenamePlaylist();
+    toast.success("Scenario name updated.");
+    cancelRenameScenario();
   };
 
-  const deletePlaylist = () => {
+  const deleteScenario = () => {
     if (!activeScenario) return;
     store.deleteScenario(activeScenario.id);
-    toast.success("Playlist deleted.");
-    setEditingPlaylistName(false);
-    setPlaylistNameDraft("");
+    toast.success("Scenario deleted.");
+    setEditingScenarioName(false);
+    setScenarioNameDraft("");
     setConfirmDeleteOpen(false);
   };
 
-  const openRecharge = (provider: string) => {
+  const trackRecommendationAction = async (
+    action: "accepted_switch" | "dismissed_switch" | "kept_current",
+    row: MemberOptimizationResult
+  ) => {
+    try {
+      await fetch("/api/v1/recommendations/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          provider: row.currentPlan.provider,
+          recommendedPlanId: row.recommendedPlan?.planId,
+          action,
+          city: dashboardData.city,
+          memberName: row.name,
+        }),
+      });
+    } catch {
+      // Non-blocking telemetry.
+    }
+  };
+
+  const openRecharge = (row: MemberOptimizationResult) => {
+    void trackRecommendationAction("accepted_switch", row);
+    const provider = row.currentPlan.provider;
     const url = RECHARGE_LINKS[provider] ?? "https://www.google.com/search?q=recharge+" + encodeURIComponent(provider);
     window.open(url, "_blank", "noopener,noreferrer");
     toast.message("Opened operator recharge page in a new tab.");
@@ -364,10 +471,10 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <ConfirmDialog
         open={confirmDeleteOpen && Boolean(activeScenario)}
-        title="Delete playlist?"
+        title="Delete scenario?"
         description={activeScenario ? `Delete ${activeScenario.name}? This cannot be undone.` : ""}
         onCancel={() => setConfirmDeleteOpen(false)}
-        onConfirm={deletePlaylist}
+        onConfirm={deleteScenario}
       />
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -384,21 +491,21 @@ export default function DashboardPage() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">Welcome back</p>
-            {!editingPlaylistName ? (
+            {!editingScenarioName ? (
               <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">{titleName}</h1>
             ) : (
               <div className="mt-1 flex w-full flex-wrap items-center gap-2">
                 <Input
-                  value={playlistNameDraft}
-                  onChange={(e) => setPlaylistNameDraft(e.target.value)}
+                  value={scenarioNameDraft}
+                  onChange={(e) => setScenarioNameDraft(e.target.value)}
                   className="h-9 w-full bg-white sm:w-[260px]"
-                  placeholder="Playlist name"
+                  placeholder="Scenario name"
                 />
-                <Button type="button" size="sm" onClick={saveRenamePlaylist} className="gap-1.5">
+                <Button type="button" size="sm" onClick={saveRenameScenario} className="gap-1.5">
                   <Check className="h-3.5 w-3.5" />
                   Save
                 </Button>
-                <Button type="button" variant="outline" size="sm" onClick={cancelRenamePlaylist} className="gap-1.5">
+                <Button type="button" variant="outline" size="sm" onClick={cancelRenameScenario} className="gap-1.5">
                   <X className="h-3.5 w-3.5" />
                   Cancel
                 </Button>
@@ -429,7 +536,7 @@ export default function DashboardPage() {
           </Select>
           {activeScenario ? (
             <>
-              <Button type="button" variant="outline" size="sm" className="w-full gap-1.5 sm:w-auto" onClick={beginRenamePlaylist}>
+              <Button type="button" variant="outline" size="sm" className="w-full gap-1.5 sm:w-auto" onClick={beginRenameScenario}>
                 <Pencil className="h-3.5 w-3.5" />
                 Rename
               </Button>
@@ -496,6 +603,14 @@ export default function DashboardPage() {
             <GitCompareArrows className="h-4 w-4" />
             {showComparePanel ? "Hide compare" : "Compare plans"}
           </Button>
+          <Select
+            value={String(shareExpiryPreset)}
+            onChange={(e) => setShareExpiryPreset((Number(e.target.value) === 7 ? 7 : 30) as 7 | 30)}
+            className="h-10 w-full rounded-xl bg-white sm:w-auto"
+          >
+            <option value="7">Share expiry: 7 days</option>
+            <option value="30">Share expiry: 30 days</option>
+          </Select>
           <Button
             type="button"
             variant="outline"
@@ -602,6 +717,7 @@ export default function DashboardPage() {
             <Card className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
               <p className="mb-3 text-sm font-semibold text-slate-900">Cost Breakdown</p>
               <div className="h-[240px] min-w-0">
+                {chartsReady ? (
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={220}>
                   <PieChart>
                     <defs>
@@ -626,6 +742,9 @@ export default function DashboardPage() {
                     <Tooltip />
                   </PieChart>
                 </ResponsiveContainer>
+                ) : (
+                  <div className="h-full w-full animate-pulse rounded-xl bg-slate-100" />
+                )}
               </div>
               <div className="mt-3 flex flex-wrap gap-3">
                 {pieData.map((d, i) => (
@@ -641,6 +760,7 @@ export default function DashboardPage() {
             <Card className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
               <p className="mb-3 text-sm font-semibold text-slate-900">Current vs Optimized</p>
               <div className="h-[240px] min-w-0">
+                {chartsReady ? (
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={220}>
                   <BarChart data={barData}>
                     <defs>
@@ -662,6 +782,9 @@ export default function DashboardPage() {
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
+                ) : (
+                  <div className="h-full w-full animate-pulse rounded-xl bg-slate-100" />
+                )}
               </div>
             </Card>
             </motion.div>
@@ -686,7 +809,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {store.scenarios.length === 0 ? (
-                <p className="text-sm text-slate-600">Save at least one playlist from the wizard to compare scenarios.</p>
+                <p className="text-sm text-slate-600">Save at least one scenario from the wizard to compare scenarios.</p>
               ) : (
                 <>
                   <div className="grid gap-3 md:grid-cols-2">
@@ -708,7 +831,7 @@ export default function DashboardPage() {
                         onChange={(e) => setCompareTargetId(e.target.value)}
                         className="h-10 rounded-xl bg-white"
                       >
-                        <option value="">Select a playlist</option>
+                        <option value="">Select a scenario</option>
                         <option value="__current__">{currentSnapshot.name}</option>
                         {store.scenarios.map((sc) => (
                           <option key={`target-${sc.id}`} value={sc.id}>
@@ -775,7 +898,7 @@ export default function DashboardPage() {
                       </div>
                     </>
                   ) : (
-                    <p className="text-sm text-slate-600">Choose a target playlist to see clear deltas.</p>
+                    <p className="text-sm text-slate-600">Choose a target scenario to see clear deltas.</p>
                   )}
                 </>
               )}
@@ -784,6 +907,84 @@ export default function DashboardPage() {
           </motion.div>
           ) : null}
           </AnimatePresence>
+
+          <Card className="border-slate-200/90 bg-white shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center justify-between gap-2 text-base">
+                <span className="inline-flex items-center gap-2">
+                  <Link2 className="h-4 w-4 text-indigo-600" />
+                  Share link manager
+                </span>
+                <Button type="button" variant="ghost" size="sm" className="gap-1" onClick={() => void refreshShareStats()}>
+                  {sharesLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCcw className="h-3.5 w-3.5" />}
+                  Refresh
+                </Button>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {shareItems.length === 0 ? (
+                <p className="text-sm text-slate-600">No share links yet. Create one from the header controls.</p>
+              ) : (
+                shareItems.slice(0, 12).map((item) => (
+                  <div key={item.shareId} className="rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="font-medium text-slate-900">{item.scenarioName}</p>
+                      <span
+                        className={cn(
+                          "rounded-full px-2 py-0.5 text-xs font-semibold",
+                          item.revoked ? "bg-rose-100 text-rose-700" : "bg-emerald-100 text-emerald-700"
+                        )}
+                      >
+                        {item.revoked ? "Revoked" : "Active"}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-slate-600">
+                      Views: {item.viewCount ?? 0} · Expires: {new Date(item.expiresAt).toLocaleDateString()}
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        className="gap-1"
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(item.shareUrl);
+                          toast.success("Share URL copied.");
+                        }}
+                      >
+                        Copy
+                      </Button>
+                      <Button type="button" size="sm" variant="outline" className="gap-1" onClick={() => window.open(item.shareUrl, "_blank")}>
+                        Open
+                      </Button>
+                      {!item.revoked ? (
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          className="gap-1 text-rose-700"
+                          onClick={async () => {
+                            const res = await fetch(`/api/v1/share/${item.shareId}/revoke`, {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                            });
+                            if (!res.ok) {
+                              toast.error("Could not revoke link.");
+                              return;
+                            }
+                            store.updateShareLink(item.shareId, { revoked: true, revokedAt: new Date().toISOString() });
+                            toast.success("Share link revoked.");
+                          }}
+                        >
+                          Revoke
+                        </Button>
+                      ) : null}
+                    </div>
+                  </div>
+                ))
+              )}
+            </CardContent>
+          </Card>
 
           {memberRows.length > 0 && (
             <Card className="border-slate-200/90 shadow-md">
@@ -820,9 +1021,21 @@ export default function DashboardPage() {
                           variant="outline"
                           size="sm"
                           className="gap-1 transition-all duration-300 hover:scale-105 hover:shadow-md"
-                          onClick={() => openRecharge(row.currentPlan.provider)}
+                          onClick={() => openRecharge(row)}
                         >
                           Switch plan <ExternalLink className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="gap-1 text-slate-600"
+                          onClick={() => {
+                            void trackRecommendationAction("kept_current", row);
+                            toast.message(`Marked ${row.name} as keep current.`);
+                          }}
+                        >
+                          Keep current
                         </Button>
                         <Button
                           type="button"
@@ -911,7 +1124,13 @@ export default function DashboardPage() {
             </Card>
           )}
 
-          {result.planRecommendations?.some((r) => r.bestPlan) && memberRows.length === 0 && (
+          <div className="flex justify-start">
+            <Button type="button" variant="outline" size="sm" onClick={() => setShowAdvancedInsights((v) => !v)}>
+              {showAdvancedInsights ? "Hide extra insights" : "Load extra insights"}
+            </Button>
+          </div>
+
+          {showAdvancedInsights && result.planRecommendations?.some((r) => r.bestPlan) && memberRows.length === 0 && (
             <Card className="border-slate-200/90 shadow-md transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
               <CardHeader>
                 <CardTitle>Legacy recommendations</CardTitle>
@@ -929,7 +1148,7 @@ export default function DashboardPage() {
             </Card>
           )}
 
-          {(result.bestValuePlan || (result.trendingPlans && result.trendingPlans.length > 0)) && (
+          {showAdvancedInsights && (result.bestValuePlan || (result.trendingPlans && result.trendingPlans.length > 0)) && (
             <div className="grid gap-4 md:grid-cols-2">
               {result.bestValuePlan && (
                 <Card className="border-slate-200/90 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
@@ -967,6 +1186,7 @@ export default function DashboardPage() {
             </div>
           )}
 
+          {showAdvancedInsights ? (
           <Card className="overflow-hidden border-0 bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-lg shadow-emerald-900/20">
             <CardHeader>
               <CardTitle className="text-lg text-white">Keep going</CardTitle>
@@ -993,13 +1213,15 @@ export default function DashboardPage() {
                     }}
                   >
                     <FolderOpen className="h-4 w-4" />
-                    Open this playlist in wizard
+                    Open this scenario in wizard
                   </button>
                 ) : null}
               </div>
             </CardContent>
           </Card>
+          ) : null}
 
+          {showAdvancedInsights ? (
           <Card className="border-slate-200/90 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl">
             <CardHeader>
               <CardTitle className="relative inline-flex w-fit items-center pb-2 text-lg">
@@ -1021,6 +1243,7 @@ export default function DashboardPage() {
               <p className="mt-4 text-xs text-slate-500">Optimized yearly spend: Rs.{optYearly.toFixed(0)}</p>
             </CardContent>
           </Card>
+          ) : null}
         </>
       )}
     </div>

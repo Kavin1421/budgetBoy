@@ -12,6 +12,7 @@ export const openApiV1Document = {
     { name: "Wizard", description: "Persist wizard payload and run optimizer" },
     { name: "Telecom", description: "Operator catalog helpers" },
     { name: "Share", description: "Shareable scenario snapshots" },
+    { name: "Recommendations", description: "Recommendation feedback and tuning signals" },
     { name: "Meta", description: "API discovery" },
   ],
   paths: {
@@ -161,6 +162,34 @@ export const openApiV1Document = {
         },
       },
     },
+    "/api/v1/share/manage": {
+      post: {
+        tags: ["Share"],
+        summary: "Resolve share metadata for known IDs",
+        requestBody: {
+          required: true,
+          content: { "application/json": { schema: { $ref: "#/components/schemas/ShareManagePayload" } } },
+        },
+        responses: {
+          "200": {
+            description: "Share metadata list",
+            headers: { "x-request-id": { schema: { type: "string" } } },
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    shares: { type: "array", items: { $ref: "#/components/schemas/ShareManageItem" } },
+                  },
+                },
+              },
+            },
+          },
+          "400": { $ref: "#/components/responses/BadRequest" },
+          "500": { $ref: "#/components/responses/ServerError" },
+        },
+      },
+    },
     "/api/v1/share/{shareId}": {
       get: {
         tags: ["Share"],
@@ -234,6 +263,33 @@ export const openApiV1Document = {
           },
           "400": { $ref: "#/components/responses/BadRequest" },
           "404": { $ref: "#/components/responses/NotFound" },
+          "500": { $ref: "#/components/responses/ServerError" },
+        },
+      },
+    },
+    "/api/v1/recommendations/feedback": {
+      post: {
+        tags: ["Recommendations"],
+        summary: "Track recommendation outcome actions",
+        requestBody: {
+          required: true,
+          content: { "application/json": { schema: { $ref: "#/components/schemas/RecommendationFeedbackPayload" } } },
+        },
+        responses: {
+          "201": {
+            description: "Recorded",
+            headers: { "x-request-id": { schema: { type: "string" } } },
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["success"],
+                  properties: { success: { type: "boolean", enum: [true] } },
+                },
+              },
+            },
+          },
+          "400": { $ref: "#/components/responses/BadRequest" },
           "500": { $ref: "#/components/responses/ServerError" },
         },
       },
@@ -414,6 +470,38 @@ export const openApiV1Document = {
           scenarioName: { type: "string" },
           expiresInDays: { type: "integer", enum: [7, 30], description: "Optional expiry window; defaults to 30 days." },
           snapshot: { $ref: "#/components/schemas/SharedSnapshot" },
+        },
+      },
+      ShareManagePayload: {
+        type: "object",
+        required: ["shareIds"],
+        properties: {
+          shareIds: { type: "array", items: { type: "string", format: "uuid" }, minItems: 1, maxItems: 100 },
+        },
+      },
+      ShareManageItem: {
+        type: "object",
+        required: ["shareId", "scenarioName", "createdAt", "expiresAt", "revoked", "viewCount"],
+        properties: {
+          shareId: { type: "string", format: "uuid" },
+          scenarioName: { type: "string" },
+          createdAt: { type: "string", format: "date-time" },
+          expiresAt: { type: "string", format: "date-time" },
+          revoked: { type: "boolean" },
+          revokedAt: { type: "string", format: "date-time", nullable: true },
+          viewCount: { type: "integer", minimum: 0 },
+          lastViewedAt: { type: "string", format: "date-time", nullable: true },
+        },
+      },
+      RecommendationFeedbackPayload: {
+        type: "object",
+        required: ["provider", "action"],
+        properties: {
+          provider: { type: "string", enum: ["Jio", "Airtel", "VI", "BSNL"] },
+          recommendedPlanId: { type: "string" },
+          action: { type: "string", enum: ["accepted_switch", "dismissed_switch", "kept_current"] },
+          city: { type: "string" },
+          memberName: { type: "string" },
         },
       },
     },

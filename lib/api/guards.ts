@@ -33,7 +33,7 @@ function takeToken(key: string, limit: number, windowMs: number) {
 export function enforceWriteGuard(
   req: Request,
   ctx: ApiContext,
-  routeKey: "analyze" | "user" | "share"
+  routeKey: "analyze" | "user" | "share" | "recommendation_feedback"
 ) {
   const userAgent = req.headers.get("user-agent")?.trim();
   if (!userAgent) {
@@ -47,7 +47,13 @@ export function enforceWriteGuard(
 
   const ip = getClientIp(req);
   const profile =
-    routeKey === "analyze" ? { limit: 30, windowMs: 10 * 60 * 1000 } : routeKey === "user" ? { limit: 50, windowMs: 10 * 60 * 1000 } : { limit: 40, windowMs: 10 * 60 * 1000 };
+    routeKey === "analyze"
+      ? { limit: 30, windowMs: 10 * 60 * 1000 }
+      : routeKey === "user"
+        ? { limit: 50, windowMs: 10 * 60 * 1000 }
+        : routeKey === "recommendation_feedback"
+          ? { limit: 120, windowMs: 10 * 60 * 1000 }
+          : { limit: 40, windowMs: 10 * 60 * 1000 };
   const token = takeToken(`${routeKey}:${ip}`, profile.limit, profile.windowMs);
   if (!token.ok) {
     ctx.log.warn("rate_limited", { routeKey, ip, retryAfterSec: token.retryAfterSec });

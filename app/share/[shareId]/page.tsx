@@ -57,7 +57,7 @@ export default async function SharedScenarioPage({ params }: SharePageProps) {
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">Shared BudgetBoy Playlist</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">Shared BudgetBoy Scenario</p>
         <h1 className="mt-1 text-2xl font-bold text-slate-900">{doc.scenarioName}</h1>
         <p className="mt-1 text-sm text-slate-600">
           Snapshot {doc.createdAt ? `created on ${new Date(doc.createdAt).toLocaleDateString()}` : "shared from BudgetBoy"}.

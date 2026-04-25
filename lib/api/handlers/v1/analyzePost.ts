@@ -1,5 +1,6 @@
 import { analyzeBudgetFromDb } from "@/lib/optimizerServer";
 import { generateAISuggestions } from "@/lib/openai";
+import { getRecommendationTuning } from "@/lib/recommendationTuning";
 import { ApiErrorCodes } from "@/lib/api/errorCodes";
 import type { ApiContext } from "@/lib/api/context";
 import { enforceWriteGuard } from "@/lib/api/guards";
@@ -27,11 +28,23 @@ export async function postAnalyze(req: Request, ctx: ApiContext) {
   }
 
   try {
-    const base = await analyzeBudgetFromDb(parsed.data);
+    const tuningStart = Date.now();
+    const tuning = await getRecommendationTuning().catch(() => ({ providerTuning: {}, planTuning: {} }));
+    const tuningDurationMs = Date.now() - tuningStart;
+
+    const optimizerStart = Date.now();
+    const base = await analyzeBudgetFromDb(parsed.data, tuning);
+    const optimizerDurationMs = Date.now() - optimizerStart;
+
+    const aiStart = Date.now();
     const aiSuggestions = await generateAISuggestions(parsed.data);
+    const aiDurationMs = Date.now() - aiStart;
     ctx.log.info("analyze_ok", {
       members: parsed.data.members.length,
       savings: base.savings,
+      optimizerDurationMs,
+      aiDurationMs,
+      tuningDurationMs,
     });
     return jsonSuccess(
       {

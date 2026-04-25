@@ -137,7 +137,6 @@ export default function WizardPage() {
       }
 
       const analysis = await analysisRes.json();
-      localStorage.setItem("budgetboy-result", JSON.stringify(analysis));
       store.setLastAnalysis(analysis);
       store.saveScenarioFromCurrent(analysis);
       if ((analysis.savings ?? optimization.savings) > 0) confetti({ particleCount: 80, spread: 75, origin: { y: 0.7 } });
@@ -213,7 +212,7 @@ export default function WizardPage() {
   };
 
   return (
-    <main className="relative mx-auto max-w-6xl px-3 py-6 sm:px-4 md:py-12 lg:max-w-6xl">
+    <main className="relative mx-auto w-full max-w-6xl px-2 py-5 sm:px-4 md:py-12 lg:max-w-6xl">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -243,7 +242,7 @@ export default function WizardPage() {
             <WizardRail steps={steps} currentStep={step} onSelect={(i) => setStep(i)} />
           </aside>
 
-          <div className="flex flex-col p-4 sm:p-6 md:p-8">
+          <div className="flex min-w-0 flex-col p-3 sm:p-6 md:p-8">
             <div className="mb-6">
               <div className="mb-2 flex items-center justify-between gap-3 text-xs font-medium text-slate-500">
                 <span>
@@ -303,7 +302,7 @@ export default function WizardPage() {
                             onChange={(e) => store.setCurrentScenarioName(e.target.value)}
                             placeholder="e.g. Kumar family April plans"
                           />
-                          <p className="mt-2 text-xs text-slate-500">Saved to dashboard as a reusable playlist/scenario.</p>
+                          <p className="mt-2 text-xs text-slate-500">Saved to dashboard as a reusable scenario.</p>
                         </div>
                         <div>
                           <Label>Household mode</Label>
