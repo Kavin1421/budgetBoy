@@ -13,8 +13,9 @@ export const metadata: Metadata = {
   title: "BudgetBoy | Smart Expense Optimizer",
   description: "Optimize telecom and subscription costs with actionable savings insights.",
   icons: {
-    icon: "/budget.png",
-    apple: "/budget.png",
+    icon: [{ url: "/budget.png", type: "image/png", sizes: "512x512" }],
+    shortcut: [{ url: "/budget.png", type: "image/png" }],
+    apple: [{ url: "/budget.png", type: "image/png", sizes: "180x180" }],
   },
 };
 

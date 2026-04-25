@@ -16,8 +16,19 @@ import { MemberForm } from "@/components/MemberForm";
 import { SubscriptionForm } from "@/components/SubscriptionForm";
 import { WizardRail } from "@/components/wizard/WizardRail";
 import { useBudgetStore } from "@/store/useBudgetStore";
-import { INDIAN_CITIES, WIFI_USAGE_TYPES } from "@/utils/constants";
-import { wizardSchema } from "@/utils/validators";
+import {
+  ACTUAL_USAGE_PER_DAY,
+  CALLING_NEEDS,
+  DATA_PER_DAY,
+  INDIAN_CITIES,
+  MEMBER_LINE_USAGE,
+  MEMBER_PRIORITIES,
+  MEMBER_RECHARGE_INTENTS,
+  PROVIDERS,
+  VALIDITIES,
+  WIFI_USAGE_TYPES,
+} from "@/utils/constants";
+import { type MemberMobileLine, wizardSchema } from "@/utils/validators";
 import { normalizeWizardFromStore, validateWizardStep } from "@/utils/wizardFlow";
 
 const steps = ["Mode", "City", "Members", "WiFi", "Subscriptions", "Income", "Review"] as const;
@@ -61,6 +72,10 @@ async function readErrorMessage(res: Response): Promise<string> {
 export default function WizardPage() {
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [editingMemberIndex, setEditingMemberIndex] = useState<number | null>(null);
+  const [editingMember, setEditingMember] = useState<MemberMobileLine | null>(null);
+  const [editingSubscriptionIndex, setEditingSubscriptionIndex] = useState<number | null>(null);
+  const [editingSubscription, setEditingSubscription] = useState<{ name: string; cost: number; used: boolean } | null>(null);
   const router = useRouter();
   const store = useBudgetStore();
   const optimization = store.getOptimization();
@@ -124,6 +139,7 @@ export default function WizardPage() {
       const analysis = await analysisRes.json();
       localStorage.setItem("budgetboy-result", JSON.stringify(analysis));
       store.setLastAnalysis(analysis);
+      store.saveScenarioFromCurrent(analysis);
       if ((analysis.savings ?? optimization.savings) > 0) confetti({ particleCount: 80, spread: 75, origin: { y: 0.7 } });
 
       void fetch("/api/v1/user", {
@@ -148,8 +164,56 @@ export default function WizardPage() {
 
   const stepHint = !stepCheck.ok ? stepCheck.message : null;
 
+  const startMemberEdit = (index: number) => {
+    setEditingMemberIndex(index);
+    setEditingMember({ ...store.members[index] });
+  };
+
+  const cancelMemberEdit = () => {
+    setEditingMemberIndex(null);
+    setEditingMember(null);
+  };
+
+  const saveMemberEdit = () => {
+    if (editingMemberIndex === null || !editingMember) return;
+    const parsed = wizardSchema.shape.members.element.safeParse(editingMember);
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please fix member fields before saving.");
+      return;
+    }
+    store.updateMember(editingMemberIndex, parsed.data);
+    toast.success("Member details updated.");
+    cancelMemberEdit();
+  };
+
+  const startSubscriptionEdit = (index: number) => {
+    setEditingSubscriptionIndex(index);
+    setEditingSubscription({ ...store.subscriptions[index] });
+  };
+
+  const cancelSubscriptionEdit = () => {
+    setEditingSubscriptionIndex(null);
+    setEditingSubscription(null);
+  };
+
+  const saveSubscriptionEdit = () => {
+    if (editingSubscriptionIndex === null || !editingSubscription) return;
+    const parsed = wizardSchema.shape.subscriptions.element.safeParse({
+      name: editingSubscription.name.trim(),
+      cost: editingSubscription.cost,
+      used: editingSubscription.used,
+    });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please fix subscription fields before saving.");
+      return;
+    }
+    store.updateSubscription(editingSubscriptionIndex, parsed.data);
+    toast.success("Subscription updated.");
+    cancelSubscriptionEdit();
+  };
+
   return (
-    <main className="relative mx-auto max-w-6xl px-4 py-8 md:py-12 lg:max-w-6xl">
+    <main className="relative mx-auto max-w-6xl px-3 py-6 sm:px-4 md:py-12 lg:max-w-6xl">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -179,7 +243,7 @@ export default function WizardPage() {
             <WizardRail steps={steps} currentStep={step} onSelect={(i) => setStep(i)} />
           </aside>
 
-          <div className="flex flex-col p-5 sm:p-8">
+          <div className="flex flex-col p-4 sm:p-6 md:p-8">
             <div className="mb-6">
               <div className="mb-2 flex items-center justify-between gap-3 text-xs font-medium text-slate-500">
                 <span>
@@ -203,7 +267,7 @@ export default function WizardPage() {
                 <CardDescription className="text-sm leading-relaxed text-slate-600">
                   {step === 0 && "Choose how you track spend — we tune defaults for individuals, families, or shared flats."}
                   {step === 1 && "Your city shapes network scores for Jio, Airtel, VI, and BSNL in recommendations."}
-                  {step === 2 && "Add each mobile line with real daily data usage so we match catalog plans fairly."}
+                  {step === 2 && "Add each mobile line with mandatory intent (calls/data/both) so recommendations fit real needs."}
                   {step === 3 && "Broadband cost and how heavily you rely on home WiFi."}
                   {step === 4 && "OTT, apps, and recurring subscriptions — mark what you actually use. You can continue with none."}
                   {step === 5 && "Optional income helps us frame savings as a share of cash flow."}
@@ -231,16 +295,27 @@ export default function WizardPage() {
                     className="min-h-[200px] space-y-4"
                   >
                     {step === 0 && (
-                      <div className="max-w-md">
-                        <Label>Household mode</Label>
-                        <Select
-                          value={store.mode}
-                          onChange={(e) => store.setMode(e.target.value as "individual" | "family" | "friends")}
-                        >
-                          <option value="individual">Individual</option>
-                          <option value="family">Family</option>
-                          <option value="friends">Friends / flatmates</option>
-                        </Select>
+                      <div className="grid max-w-2xl gap-4 md:grid-cols-2">
+                        <div>
+                          <Label>Plan list name</Label>
+                          <Input
+                            value={store.currentScenarioName}
+                            onChange={(e) => store.setCurrentScenarioName(e.target.value)}
+                            placeholder="e.g. Kumar family April plans"
+                          />
+                          <p className="mt-2 text-xs text-slate-500">Saved to dashboard as a reusable playlist/scenario.</p>
+                        </div>
+                        <div>
+                          <Label>Household mode</Label>
+                          <Select
+                            value={store.mode}
+                            onChange={(e) => store.setMode(e.target.value as "individual" | "family" | "friends")}
+                          >
+                            <option value="individual">Individual</option>
+                            <option value="family">Family</option>
+                            <option value="friends">Friends / flatmates</option>
+                          </Select>
+                        </div>
                       </div>
                     )}
                     {step === 1 && (
@@ -263,20 +338,198 @@ export default function WizardPage() {
                         <MemberForm onAdd={store.addMember} />
                         <div className="grid gap-2">
                           {store.members.map((m, i) => (
-                            <motion.div
-                              key={`${m.name}-${i}`}
-                              layout
-                              initial={{ opacity: 0, scale: 0.98 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/90 px-3 py-2.5 text-sm text-slate-800"
-                            >
-                              <span>
-                                {m.name} · {m.provider} · ₹{m.currentPlanPrice}/{m.validity}d · plan {m.planDataPerDay} · ~{m.actualUsagePerDay}{" "}
-                                · {m.lineUsageType}
-                              </span>
-                              <Button variant="ghost" size="sm" onClick={() => store.removeMember(i)}>
-                                Remove
-                              </Button>
+                            <motion.div key={`${m.name}-${i}`} layout initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }}>
+                              <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/90 px-3 py-2.5 text-sm text-slate-800">
+                                <span className="min-w-0 flex-1 break-words">
+                                  {m.name} · {m.provider} · ₹{m.currentPlanPrice}/{m.validity}d · plan {m.planDataPerDay} · ~{m.actualUsagePerDay} ·{" "}
+                                  {m.lineUsageType} · intent {m.rechargeIntent} · {m.callingNeed}
+                                </span>
+                                <div className="flex items-center gap-1">
+                                  <Button variant="ghost" size="sm" onClick={() => startMemberEdit(i)}>
+                                    Edit
+                                  </Button>
+                                  <Button variant="ghost" size="sm" onClick={() => store.removeMember(i)}>
+                                    Remove
+                                  </Button>
+                                </div>
+                              </div>
+                              {editingMemberIndex === i && editingMember && (
+                                <div className="mt-2 rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+                                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-emerald-800">Edit member</p>
+                                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                    <div className="sm:col-span-2">
+                                      <Label>Name</Label>
+                                      <Input
+                                        value={editingMember.name}
+                                        onChange={(e) => setEditingMember({ ...editingMember, name: e.target.value })}
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label>Provider</Label>
+                                      <Select
+                                        value={editingMember.provider}
+                                        onChange={(e) =>
+                                          setEditingMember({ ...editingMember, provider: e.target.value as (typeof PROVIDERS)[number] })
+                                        }
+                                      >
+                                        {PROVIDERS.map((p) => (
+                                          <option key={p}>{p}</option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Recharge (₹)</Label>
+                                      <Input
+                                        type="number"
+                                        min={1}
+                                        value={editingMember.currentPlanPrice}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            currentPlanPrice: Math.max(1, Number(e.target.value) || 1),
+                                          })
+                                        }
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label>Validity</Label>
+                                      <Select
+                                        value={editingMember.validity}
+                                        onChange={(e) =>
+                                          setEditingMember({ ...editingMember, validity: e.target.value as (typeof VALIDITIES)[number] })
+                                        }
+                                      >
+                                        {VALIDITIES.map((v) => (
+                                          <option key={v} value={v}>
+                                            {v} days
+                                          </option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Plan data / day</Label>
+                                      <Select
+                                        value={editingMember.planDataPerDay}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            planDataPerDay: e.target.value as (typeof DATA_PER_DAY)[number],
+                                          })
+                                        }
+                                      >
+                                        {DATA_PER_DAY.map((d) => (
+                                          <option key={d}>{d}</option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Actual usage / day</Label>
+                                      <Select
+                                        value={editingMember.actualUsagePerDay}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            actualUsagePerDay: e.target.value as (typeof ACTUAL_USAGE_PER_DAY)[number],
+                                          })
+                                        }
+                                      >
+                                        {ACTUAL_USAGE_PER_DAY.map((d) => (
+                                          <option key={d}>{d}</option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Line profile</Label>
+                                      <Select
+                                        value={editingMember.lineUsageType}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            lineUsageType: e.target.value as (typeof MEMBER_LINE_USAGE)[number],
+                                          })
+                                        }
+                                      >
+                                        {MEMBER_LINE_USAGE.map((t) => (
+                                          <option key={t} value={t}>
+                                            {t}
+                                          </option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Recharge intent</Label>
+                                      <Select
+                                        value={editingMember.rechargeIntent}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            rechargeIntent: e.target.value as (typeof MEMBER_RECHARGE_INTENTS)[number],
+                                          })
+                                        }
+                                      >
+                                        {MEMBER_RECHARGE_INTENTS.map((intent) => (
+                                          <option key={intent} value={intent}>
+                                            {intent}
+                                          </option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Calling need</Label>
+                                      <Select
+                                        value={editingMember.callingNeed}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            callingNeed: e.target.value as (typeof CALLING_NEEDS)[number],
+                                          })
+                                        }
+                                      >
+                                        {CALLING_NEEDS.map((need) => (
+                                          <option key={need} value={need}>
+                                            {need}
+                                          </option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div>
+                                      <Label>Priority</Label>
+                                      <Select
+                                        value={editingMember.priority}
+                                        onChange={(e) =>
+                                          setEditingMember({
+                                            ...editingMember,
+                                            priority: e.target.value as (typeof MEMBER_PRIORITIES)[number],
+                                          })
+                                        }
+                                      >
+                                        {MEMBER_PRIORITIES.map((p) => (
+                                          <option key={p} value={p}>
+                                            {p}
+                                          </option>
+                                        ))}
+                                      </Select>
+                                    </div>
+                                    <div className="flex items-end gap-2 text-sm">
+                                      <input
+                                        id={`edit-needs-ott-${i}`}
+                                        type="checkbox"
+                                        checked={editingMember.needsOtt}
+                                        onChange={(e) => setEditingMember({ ...editingMember, needsOtt: e.target.checked })}
+                                      />
+                                      <Label htmlFor={`edit-needs-ott-${i}`}>Needs OTT benefits</Label>
+                                    </div>
+                                  </div>
+                                  <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
+                                    <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={cancelMemberEdit}>
+                                      Cancel
+                                    </Button>
+                                    <Button size="sm" className="w-full sm:w-auto" onClick={saveMemberEdit}>
+                                      Save changes
+                                    </Button>
+                                  </div>
+                                </div>
+                              )}
                             </motion.div>
                           ))}
                         </div>
@@ -323,19 +576,67 @@ export default function WizardPage() {
                             <p className="text-sm text-slate-500">No subscriptions added — that&apos;s fine; tap Continue when ready.</p>
                           ) : (
                             store.subscriptions.map((s, i) => (
-                              <motion.div
-                                key={`${s.name}-${i}`}
-                                layout
-                                initial={{ opacity: 0, y: 6 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50/90 px-3 py-2 text-sm"
-                              >
-                                <span>
-                                  {s.name} · Rs.{s.cost} · {s.used ? "Used" : "Unused"}
-                                </span>
-                                <Button variant="ghost" size="sm" onClick={() => store.removeSubscription(i)}>
-                                  Remove
-                                </Button>
+                              <motion.div key={`${s.name}-${i}`} layout initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+                                <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/90 px-3 py-2 text-sm">
+                                  <span className="min-w-0 flex-1 break-words">
+                                    {s.name} · Rs.{s.cost} · {s.used ? "Used" : "Unused"}
+                                  </span>
+                                  <div className="flex items-center gap-1">
+                                    <Button variant="ghost" size="sm" onClick={() => startSubscriptionEdit(i)}>
+                                      Edit
+                                    </Button>
+                                    <Button variant="ghost" size="sm" onClick={() => store.removeSubscription(i)}>
+                                      Remove
+                                    </Button>
+                                  </div>
+                                </div>
+                                {editingSubscriptionIndex === i && editingSubscription && (
+                                  <div className="mt-2 rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+                                    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-emerald-800">Edit subscription</p>
+                                    <div className="grid gap-3 md:grid-cols-4">
+                                      <div className="md:col-span-2">
+                                        <Label>Name</Label>
+                                        <Input
+                                          value={editingSubscription.name}
+                                          onChange={(e) => setEditingSubscription({ ...editingSubscription, name: e.target.value })}
+                                        />
+                                      </div>
+                                      <div>
+                                        <Label>Monthly Cost</Label>
+                                        <Input
+                                          type="number"
+                                          min={1}
+                                          value={editingSubscription.cost}
+                                          onChange={(e) =>
+                                            setEditingSubscription({
+                                              ...editingSubscription,
+                                              cost: Math.max(1, Number(e.target.value) || 1),
+                                            })
+                                          }
+                                        />
+                                      </div>
+                                      <div className="flex items-end gap-2 text-sm">
+                                        <input
+                                          id={`edit-subscription-used-${i}`}
+                                          type="checkbox"
+                                          checked={editingSubscription.used}
+                                          onChange={(e) =>
+                                            setEditingSubscription({ ...editingSubscription, used: e.target.checked })
+                                          }
+                                        />
+                                        <Label htmlFor={`edit-subscription-used-${i}`}>Actively used</Label>
+                                      </div>
+                                    </div>
+                                    <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
+                                      <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={cancelSubscriptionEdit}>
+                                        Cancel
+                                      </Button>
+                                      <Button size="sm" className="w-full sm:w-auto" onClick={saveSubscriptionEdit}>
+                                        Save changes
+                                      </Button>
+                                    </div>
+                                  </div>
+                                )}
                               </motion.div>
                             ))
                           )}
@@ -398,8 +699,8 @@ export default function WizardPage() {
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200/80 pt-8">
-                  <Button variant="muted" disabled={step === 0} onClick={() => setStep((s) => Math.max(s - 1, 0))}>
+                <div className="mt-10 flex flex-col-reverse gap-3 border-t border-slate-200/80 pt-8 sm:flex-row sm:items-center sm:justify-between">
+                  <Button variant="muted" className="w-full sm:w-auto" disabled={step === 0} onClick={() => setStep((s) => Math.max(s - 1, 0))}>
                     Back
                   </Button>
                   {step < steps.length - 1 ? (
@@ -407,13 +708,13 @@ export default function WizardPage() {
                       type="button"
                       disabled={!canGoNext}
                       onClick={goNext}
-                      className="gap-2 shadow-md shadow-emerald-900/10"
+                      className="w-full gap-2 shadow-md shadow-emerald-900/10 sm:w-auto"
                     >
                       Continue
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   ) : (
-                    <Button variant="success" disabled={!canSubmit || submitting} onClick={submit} className="gap-2 shadow-md">
+                    <Button variant="success" disabled={!canSubmit || submitting} onClick={submit} className="w-full gap-2 shadow-md sm:w-auto">
                       {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
                       Submit &amp; analyze
                     </Button>

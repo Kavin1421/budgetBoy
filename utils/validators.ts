@@ -1,9 +1,12 @@
 import { z } from "zod";
 import {
   ACTUAL_USAGE_PER_DAY,
+  CALLING_NEEDS,
   DATA_PER_DAY,
   INDIAN_CITIES,
   MEMBER_LINE_USAGE,
+  MEMBER_PRIORITIES,
+  MEMBER_RECHARGE_INTENTS,
   PROVIDERS,
   VALIDITIES,
   WIFI_USAGE_TYPES,
@@ -19,6 +22,10 @@ export const memberMobileLineSchema = z
     planDataPerDay: z.enum(DATA_PER_DAY),
     actualUsagePerDay: z.enum(ACTUAL_USAGE_PER_DAY),
     lineUsageType: z.enum(MEMBER_LINE_USAGE),
+    rechargeIntent: z.enum(MEMBER_RECHARGE_INTENTS),
+    priority: z.enum(MEMBER_PRIORITIES),
+    callingNeed: z.enum(CALLING_NEEDS),
+    needsOtt: z.boolean(),
   })
   .superRefine((m, ctx) => {
     const planGb = planDataPerDayToGB(m.planDataPerDay);
@@ -35,6 +42,20 @@ export const memberMobileLineSchema = z
         code: z.ZodIssueCode.custom,
         message: "Heavy line usage rarely matches ≤0.5GB/day actual data — please verify.",
         path: ["lineUsageType"],
+      });
+    }
+    if ((m.rechargeIntent === "calls-only" || m.rechargeIntent === "senior-basic") && useGb > 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Calls-first profiles should not report very high data usage. Choose a balanced/data intent if needed.",
+        path: ["rechargeIntent"],
+      });
+    }
+    if (m.rechargeIntent === "data-only" && m.callingNeed === "unlimited-needed") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Data-only intent conflicts with unlimited calling need. Choose calls/balanced intent.",
+        path: ["callingNeed"],
       });
     }
   });

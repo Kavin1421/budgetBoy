@@ -29,6 +29,8 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
     const net = getNetworkQuality(input.city, m.provider);
     let save = 0;
     const reasons: string[] = [];
+    const overData = Math.max(0, planGB - usageGB);
+    const unusedDataCost = Math.round(currentMonthly * Math.min(0.35, overData * 0.12));
 
     if (planGB > usageGB + 0.2) {
       save = Math.round(currentMonthly * 0.1);
@@ -42,6 +44,10 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
     const snap: MemberCurrentPlanSnapshot = {
       name: m.name,
       provider: m.provider,
+      rechargeIntent: m.rechargeIntent,
+      priority: m.priority,
+      callingNeed: m.callingNeed,
+      needsOtt: m.needsOtt,
       currentPlanPrice: m.currentPlanPrice,
       validityDays,
       planDataPerDay: m.planDataPerDay,
@@ -56,6 +62,16 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
       name: m.name,
       memberIndex: i,
       currentPlan: snap,
+      verdict: save >= 30 ? "switch_recommended" : "keep_current",
+      currentFitScore: Math.max(10, Math.min(100, Math.round(65 - overData * 10 + (net - 5) * 3))),
+      recommendedFitScore: Math.max(10, Math.min(100, Math.round(70 - overData * 6 + (net - 5) * 3))),
+      confidence: save >= 70 ? "high" : save >= 30 ? "medium" : "low",
+      wasteBreakdown: {
+        unusedDataCost,
+        overSpecCost: Math.round(Math.max(0, currentMonthly * (validityDays > 84 ? 0.06 : 0))),
+        networkPenaltyCost: Math.round(Math.max(0, (6 - net) * 5)),
+        ottMismatchCost: m.needsOtt ? Math.round(Math.max(0, currentMonthly * 0.04)) : 0,
+      },
       recommendedPlan: null,
       alternatives: [],
       savings: save,

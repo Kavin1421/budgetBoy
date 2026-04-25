@@ -6,22 +6,47 @@ import type { OptimizationResult } from "@/lib/optimizerTypes";
 
 type Mode = "individual" | "family" | "friends";
 
+export type SavedScenario = {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  data: WizardInput;
+  analysis: OptimizationResult | null;
+};
+
 type StoreState = WizardInput & {
   lastAnalysis: OptimizationResult | null;
+  scenarios: SavedScenario[];
+  activeScenarioId?: string;
+  currentScenarioName: string;
   setLastAnalysis: (result: OptimizationResult | null) => void;
+  setCurrentScenarioName: (name: string) => void;
   setMode: (mode: Mode) => void;
   setCity: (city: WizardInput["city"]) => void;
   addMember: (member: WizardInput["members"][number]) => void;
+  updateMember: (index: number, member: WizardInput["members"][number]) => void;
   removeMember: (index: number) => void;
   setWifi: (wifi: WizardInput["wifi"]) => void;
   addSubscription: (subscription: WizardInput["subscriptions"][number]) => void;
+  updateSubscription: (index: number, subscription: WizardInput["subscriptions"][number]) => void;
   removeSubscription: (index: number) => void;
   setIncome: (income?: number) => void;
+  saveScenarioFromCurrent: (analysis?: OptimizationResult | null) => string;
+  setActiveScenario: (id?: string) => void;
+  renameScenario: (id: string, name: string) => void;
+  deleteScenario: (id: string) => void;
+  loadScenarioToWizard: (id: string) => void;
   reset: () => void;
   getOptimization: () => OptimizationResult;
 };
 
-const initialState: WizardInput & { lastAnalysis: OptimizationResult | null } = {
+const initialState: WizardInput & {
+  lastAnalysis: OptimizationResult | null;
+  scenarios: SavedScenario[];
+  activeScenarioId?: string;
+  currentScenarioName: string;
+} = {
   mode: "individual",
   city: "Bangalore",
   members: [
@@ -33,11 +58,18 @@ const initialState: WizardInput & { lastAnalysis: OptimizationResult | null } = 
       planDataPerDay: "2GB",
       actualUsagePerDay: "1GB",
       lineUsageType: "medium",
+      rechargeIntent: "both-balanced",
+      priority: "balanced",
+      callingNeed: "regular",
+      needsOtt: false,
     },
   ],
   subscriptions: [],
   wifi: { cost: 0, usageType: "moderate" },
   income: undefined,
+  scenarios: [],
+  activeScenarioId: undefined,
+  currentScenarioName: "My family plan",
   lastAnalysis: null,
 };
 
@@ -46,14 +78,68 @@ export const useBudgetStore = create<StoreState>()(
     (set, get) => ({
       ...initialState,
       setLastAnalysis: (result) => set({ lastAnalysis: result }),
+      setCurrentScenarioName: (name) => set({ currentScenarioName: name }),
       setMode: (mode) => set({ mode }),
       setCity: (city) => set({ city }),
       addMember: (member) => set((state) => ({ members: [...state.members, member] })),
+      updateMember: (index, member) =>
+        set((state) => ({ members: state.members.map((m, i) => (i === index ? member : m)) })),
       removeMember: (index) => set((state) => ({ members: state.members.filter((_, i) => i !== index) })),
       setWifi: (wifi) => set({ wifi }),
       addSubscription: (subscription) => set((state) => ({ subscriptions: [...state.subscriptions, subscription] })),
+      updateSubscription: (index, subscription) =>
+        set((state) => ({ subscriptions: state.subscriptions.map((s, i) => (i === index ? subscription : s)) })),
       removeSubscription: (index) => set((state) => ({ subscriptions: state.subscriptions.filter((_, i) => i !== index) })),
       setIncome: (income) => set({ income }),
+      saveScenarioFromCurrent: (analysis) => {
+        const s = get();
+        const now = new Date().toISOString();
+        const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const scenario: SavedScenario = {
+          id,
+          name: s.currentScenarioName.trim() || "Untitled scenario",
+          createdAt: now,
+          updatedAt: now,
+          data: {
+            mode: s.mode,
+            city: s.city,
+            members: s.members,
+            subscriptions: s.subscriptions,
+            wifi: s.wifi,
+            income: s.income,
+          },
+          analysis: analysis ?? s.lastAnalysis,
+        };
+        set((state) => ({
+          scenarios: [scenario, ...state.scenarios].slice(0, 30),
+          activeScenarioId: scenario.id,
+        }));
+        return scenario.id;
+      },
+      setActiveScenario: (id) => set({ activeScenarioId: id }),
+      renameScenario: (id, name) =>
+        set((state) => ({
+          scenarios: state.scenarios.map((sc) =>
+            sc.id === id ? { ...sc, name: name.trim() || sc.name, updatedAt: new Date().toISOString() } : sc
+          ),
+        })),
+      deleteScenario: (id) =>
+        set((state) => ({
+          scenarios: state.scenarios.filter((sc) => sc.id !== id),
+          activeScenarioId: state.activeScenarioId === id ? undefined : state.activeScenarioId,
+        })),
+      loadScenarioToWizard: (id) =>
+        set((state) => {
+          const sc = state.scenarios.find((x) => x.id === id);
+          if (!sc) return state;
+          return {
+            ...state,
+            ...sc.data,
+            lastAnalysis: sc.analysis,
+            currentScenarioName: sc.name,
+            activeScenarioId: sc.id,
+          };
+        }),
       reset: () => set(initialState),
       getOptimization: () => {
         const s = get();

@@ -34,7 +34,7 @@ export function SiteHeader() {
             Budget<span className="text-teal-200">Boy</span>
           </span>
         </Link>
-        <nav className="flex items-center gap-1 md:gap-2">
+        <nav className="flex items-center gap-1 overflow-x-auto md:gap-2">
           {links.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || (href !== "/" && pathname.startsWith(href));
             return (
@@ -42,7 +42,7 @@ export function SiteHeader() {
                 key={href}
                 href={href}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition md:text-sm",
+                  "flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-medium transition md:px-3 md:text-sm",
                   active
                     ? "bg-white/15 text-white shadow-inner ring-1 ring-white/20"
                     : "text-white/75 hover:bg-white/10 hover:text-white"

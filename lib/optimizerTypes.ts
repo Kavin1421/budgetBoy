@@ -17,6 +17,10 @@ export type PlanRecommendation = {
 export type MemberCurrentPlanSnapshot = {
   name: string;
   provider: string;
+  rechargeIntent: string;
+  priority: string;
+  callingNeed: string;
+  needsOtt: boolean;
   currentPlanPrice: number;
   validityDays: number;
   planDataPerDay: string;
@@ -31,6 +35,16 @@ export type MemberOptimizationResult = {
   name: string;
   memberIndex: number;
   currentPlan: MemberCurrentPlanSnapshot;
+  verdict: "keep_current" | "switch_recommended";
+  currentFitScore: number;
+  recommendedFitScore: number;
+  confidence: "high" | "medium" | "low";
+  wasteBreakdown: {
+    unusedDataCost: number;
+    overSpecCost: number;
+    networkPenaltyCost: number;
+    ottMismatchCost: number;
+  };
   recommendedPlan: CatalogTelecomPlan | null;
   alternatives: CatalogTelecomPlan[];
   savings: number;

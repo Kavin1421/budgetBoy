@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { INDIAN_CITIES } from "@/utils/constants";
+import {
+  CALLING_NEEDS,
+  INDIAN_CITIES,
+  MEMBER_PRIORITIES,
+  MEMBER_RECHARGE_INTENTS,
+} from "@/utils/constants";
 import {
   memberMobileLineSchema,
   subscriptionSchema,
@@ -20,6 +25,50 @@ export type WizardStoreSlice = Pick<WizardInput, "mode" | "city" | "members" | "
   income?: number;
 };
 
+function normalizeMember(
+  member: WizardStoreSlice["members"][number]
+): WizardInput["members"][number] {
+  const fallbackIntent =
+    member.lineUsageType === "calls-only"
+      ? "calls-only"
+      : member.lineUsageType === "heavy"
+        ? "streaming-heavy"
+        : "both-balanced";
+
+  const rechargeIntent = MEMBER_RECHARGE_INTENTS.includes(
+    (member as Partial<WizardInput["members"][number]>).rechargeIntent as (typeof MEMBER_RECHARGE_INTENTS)[number]
+  )
+    ? ((member as WizardInput["members"][number]).rechargeIntent as (typeof MEMBER_RECHARGE_INTENTS)[number])
+    : fallbackIntent;
+
+  const priority = MEMBER_PRIORITIES.includes(
+    (member as Partial<WizardInput["members"][number]>).priority as (typeof MEMBER_PRIORITIES)[number]
+  )
+    ? ((member as WizardInput["members"][number]).priority as (typeof MEMBER_PRIORITIES)[number])
+    : "balanced";
+
+  const callingNeed = CALLING_NEEDS.includes(
+    (member as Partial<WizardInput["members"][number]>).callingNeed as (typeof CALLING_NEEDS)[number]
+  )
+    ? ((member as WizardInput["members"][number]).callingNeed as (typeof CALLING_NEEDS)[number])
+    : member.lineUsageType === "calls-only"
+      ? "high"
+      : "regular";
+
+  const needsOtt =
+    typeof (member as Partial<WizardInput["members"][number]>).needsOtt === "boolean"
+      ? Boolean((member as WizardInput["members"][number]).needsOtt)
+      : rechargeIntent === "streaming-heavy";
+
+  return {
+    ...member,
+    rechargeIntent,
+    priority,
+    callingNeed,
+    needsOtt,
+  };
+}
+
 /** Coerce WiFi / income numbers so Zod never sees NaN from cleared inputs. */
 export function normalizeWizardFromStore(state: WizardStoreSlice): WizardInput {
   const w = Number(state.wifi.cost);
@@ -32,7 +81,7 @@ export function normalizeWizardFromStore(state: WizardStoreSlice): WizardInput {
   return {
     mode: state.mode,
     city: state.city,
-    members: state.members,
+    members: state.members.map(normalizeMember),
     subscriptions: state.subscriptions,
     wifi: {
       ...state.wifi,

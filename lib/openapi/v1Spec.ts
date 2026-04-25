@@ -11,6 +11,7 @@ export const openApiV1Document = {
   tags: [
     { name: "Wizard", description: "Persist wizard payload and run optimizer" },
     { name: "Telecom", description: "Operator catalog helpers" },
+    { name: "Share", description: "Shareable scenario snapshots" },
     { name: "Meta", description: "API discovery" },
   ],
   paths: {
@@ -125,6 +126,79 @@ export const openApiV1Document = {
         },
       },
     },
+    "/api/v1/share": {
+      post: {
+        tags: ["Share"],
+        summary: "Create a shareable scenario snapshot",
+        description: "Stores a lightweight snapshot and returns a UUID share id.",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ShareCreatePayload" },
+            },
+          },
+        },
+        responses: {
+          "201": {
+            description: "Created",
+            headers: { "x-request-id": { schema: { type: "string" } } },
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["shareId", "success"],
+                  properties: {
+                    shareId: { type: "string", format: "uuid" },
+                    success: { type: "boolean", enum: [true] },
+                  },
+                },
+              },
+            },
+          },
+          "400": { $ref: "#/components/responses/BadRequest" },
+          "500": { $ref: "#/components/responses/ServerError" },
+        },
+      },
+    },
+    "/api/v1/share/{shareId}": {
+      get: {
+        tags: ["Share"],
+        summary: "Get shared scenario snapshot by UUID",
+        parameters: [
+          {
+            name: "shareId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+            description: "Share identifier",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Shared snapshot",
+            headers: { "x-request-id": { schema: { type: "string" } } },
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["shareId", "scenarioName", "snapshot"],
+                  properties: {
+                    shareId: { type: "string", format: "uuid" },
+                    scenarioName: { type: "string" },
+                    snapshot: { $ref: "#/components/schemas/SharedSnapshot" },
+                    createdAt: { type: "string", format: "date-time" },
+                  },
+                },
+              },
+            },
+          },
+          "400": { $ref: "#/components/responses/BadRequest" },
+          "404": { $ref: "#/components/responses/NotFound" },
+          "500": { $ref: "#/components/responses/ServerError" },
+        },
+      },
+    },
   },
   components: {
     responses: {
@@ -156,6 +230,14 @@ export const openApiV1Document = {
           },
         },
       },
+      NotFound: {
+        description: "Entity not found",
+        content: {
+          "application/json": {
+            schema: { $ref: "#/components/schemas/ApiErrorEnvelope" },
+          },
+        },
+      },
     },
     schemas: {
       ApiErrorEnvelope: {
@@ -176,6 +258,8 @@ export const openApiV1Document = {
                   "TELECOM_FETCH_FAILED",
                   "DATABASE_ERROR",
                   "ANALYSIS_FAILED",
+                  "SHARE_NOT_FOUND",
+                  "SHARE_CREATE_FAILED",
                 ],
               },
               message: { type: "string" },
@@ -207,6 +291,10 @@ export const openApiV1Document = {
                 "planDataPerDay",
                 "actualUsagePerDay",
                 "lineUsageType",
+                "rechargeIntent",
+                "priority",
+                "callingNeed",
+                "needsOtt",
               ],
               properties: {
                 name: { type: "string" },
@@ -216,6 +304,13 @@ export const openApiV1Document = {
                 planDataPerDay: { type: "string", enum: ["1GB", "1.5GB", "2GB", "3GB"] },
                 actualUsagePerDay: { type: "string", enum: ["0.5GB", "1GB", "1.5GB", "2GB+"] },
                 lineUsageType: { type: "string", enum: ["calls-only", "light", "medium", "heavy"] },
+                rechargeIntent: {
+                  type: "string",
+                  enum: ["calls-only", "data-only", "both-balanced", "streaming-heavy", "senior-basic", "work-business"],
+                },
+                priority: { type: "string", enum: ["lowest-cost", "best-network", "balanced"] },
+                callingNeed: { type: "string", enum: ["rare", "regular", "high", "unlimited-needed"] },
+                needsOtt: { type: "boolean" },
               },
             },
           },
@@ -256,6 +351,27 @@ export const openApiV1Document = {
           planRecommendations: { type: "array", items: { type: "object" } },
           bestValuePlan: { nullable: true, type: "object" },
           trendingPlans: { type: "array", items: { type: "object" } },
+        },
+      },
+      SharedSnapshot: {
+        type: "object",
+        required: ["currentCost", "optimizedCost", "savings", "avoidableWaste", "members", "subscriptions", "suggestions"],
+        properties: {
+          currentCost: { type: "number" },
+          optimizedCost: { type: "number" },
+          savings: { type: "number" },
+          avoidableWaste: { type: "number" },
+          members: { type: "integer", minimum: 0 },
+          subscriptions: { type: "integer", minimum: 0 },
+          suggestions: { type: "array", items: { type: "string" } },
+        },
+      },
+      ShareCreatePayload: {
+        type: "object",
+        required: ["scenarioName", "snapshot"],
+        properties: {
+          scenarioName: { type: "string" },
+          snapshot: { $ref: "#/components/schemas/SharedSnapshot" },
         },
       },
     },

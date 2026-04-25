@@ -9,6 +9,8 @@ export const ApiErrorCodes = {
   TELECOM_FETCH_FAILED: "TELECOM_FETCH_FAILED",
   DATABASE_ERROR: "DATABASE_ERROR",
   ANALYSIS_FAILED: "ANALYSIS_FAILED",
+  SHARE_NOT_FOUND: "SHARE_NOT_FOUND",
+  SHARE_CREATE_FAILED: "SHARE_CREATE_FAILED",
 } as const;
 
 export type ApiErrorCode = (typeof ApiErrorCodes)[keyof typeof ApiErrorCodes];

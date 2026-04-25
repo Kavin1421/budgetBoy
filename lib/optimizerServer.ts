@@ -13,13 +13,52 @@ import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
 import { getNetworkQuality } from "@/lib/cityNetworkScore";
 import { actualUsageToGB, planDataPerDayToGB } from "@/lib/memberPlanUtils";
 
-function scorePlan(p: CatalogTelecomPlan, usageGB: number, city: string): number {
+function intentBaselineUsage(intent: WizardInput["members"][number]["rechargeIntent"]): number {
+  if (intent === "calls-only" || intent === "senior-basic") return 0.5;
+  if (intent === "data-only" || intent === "both-balanced") return 1.2;
+  if (intent === "work-business") return 1.5;
+  return 2;
+}
+
+function scorePlan(
+  p: CatalogTelecomPlan,
+  usageGB: number,
+  city: string,
+  member: WizardInput["members"][number],
+  currentMonthly: number
+): number {
   const m = monthlyEquivalent(p);
+  const intentUsage = intentBaselineUsage(member.rechargeIntent);
+  const targetUsage = Math.max(usageGB, intentUsage);
   const priceW = 1 / (1 + m / 45);
-  const dataMatch = 1 / (1 + Math.abs(p.dataPerDayGB - usageGB));
+  const dataMatch = 1 / (1 + Math.abs(p.dataPerDayGB - targetUsage));
   const netW = getNetworkQuality(city, p.provider) / 10;
-  const rightSized = p.dataPerDayGB <= usageGB + 1.25 ? 1 : 0.88;
-  return priceW * 2.25 + dataMatch * 1.65 + netW * 1.45 * rightSized;
+  const rightSized = p.dataPerDayGB <= targetUsage + 1.25 ? 1 : 0.85;
+  const ottNeed = member.needsOtt ? (p.ottBenefits.length > 0 ? 1.08 : 0.82) : 1;
+  const callNeed = member.callingNeed === "unlimited-needed" ? (p.calls.toLowerCase().includes("unlimited") ? 1.05 : 0.86) : 1;
+  const priorityBoost =
+    member.priority === "lowest-cost"
+      ? 1 + Math.max(0, currentMonthly - m) / Math.max(currentMonthly, 1)
+      : member.priority === "best-network"
+        ? 0.9 + netW * 0.3
+        : 1;
+  return (priceW * 2.2 + dataMatch * 1.7 + netW * 1.45 * rightSized) * ottNeed * callNeed * priorityBoost;
+}
+
+function fitScore(member: WizardInput["members"][number], dataGB: number, monthly: number, networkScore: number, hasOtt: boolean): number {
+  const usageGB = actualUsageToGB(member.actualUsagePerDay);
+  const target = Math.max(usageGB, intentBaselineUsage(member.rechargeIntent));
+  const dataPenalty = Math.min(45, Math.abs(dataGB - target) * 14);
+  const budgetPenalty = member.priority === "lowest-cost" ? Math.min(25, monthly / 20) : Math.min(15, monthly / 28);
+  const networkPenalty = member.priority === "best-network" ? Math.max(0, 9 - networkScore) * 3 : Math.max(0, 7 - networkScore) * 2;
+  const ottPenalty = member.needsOtt && !hasOtt ? 12 : 0;
+  return Math.max(5, Math.min(100, Math.round(100 - dataPenalty - budgetPenalty - networkPenalty - ottPenalty)));
+}
+
+function confidenceFromDiff(diff: number, savings: number): "high" | "medium" | "low" {
+  if (diff >= 15 || savings >= 120) return "high";
+  if (diff >= 8 || savings >= 60) return "medium";
+  return "low";
 }
 
 function optimizeMember(
@@ -41,9 +80,10 @@ function optimizeMember(
   let pool = sameProv.filter((p) => meetsUsage(p) && affordable(p));
   if (!pool.length) pool = sameProv.filter((p) => meetsUsage(p) && monthlyEquivalent(p) <= currentMonthly * 1.12);
   if (!pool.length) pool = sameProv.filter((p) => meetsUsage(p));
+  if (!pool.length) pool = sameProv;
 
   const scored = pool
-    .map((p) => ({ p, s: scorePlan(p, usageGB, city) }))
+    .map((p) => ({ p, s: scorePlan(p, usageGB, city, member, currentMonthly) }))
     .sort((a, b) => {
       if (b.s !== a.s) return b.s - a.s;
       return monthlyEquivalent(a.p) - monthlyEquivalent(b.p);
@@ -75,6 +115,23 @@ function optimizeMember(
     .slice(0, 2);
 
   const reasons: string[] = [];
+  const currentFit = fitScore(member, planGB, currentMonthly, net, false);
+  const recommendedFit = best
+    ? fitScore(
+        member,
+        best.dataPerDayGB,
+        monthlyEquivalent(best),
+        getNetworkQuality(city, best.provider),
+        best.ottBenefits.length > 0
+      )
+    : currentFit;
+  const fitDelta = recommendedFit - currentFit;
+
+  const unusedDataCost = Math.round(Math.max(0, currentMonthly * Math.min(0.4, (planGB - usageGB) * 0.12)));
+  const overSpecCost = Math.round(Math.max(0, currentMonthly * (validityDays > 84 ? 0.06 : 0)));
+  const networkPenaltyCost = Math.round(Math.max(0, (7 - net) * 6));
+  const ottMismatchCost = member.needsOtt && (!best || best.ottBenefits.length === 0) ? Math.round(currentMonthly * 0.05) : 0;
+
   if (planGB > usageGB + 0.15) {
     reasons.push(
       `Your pack includes ~${planGB}GB/day but you use ~${usageGB}GB/day — you are paying for unused headroom.`
@@ -94,10 +151,17 @@ function optimizeMember(
   } else {
     reasons.push("No catalog match that clearly beats your current line — prices may already be optimal for this usage.");
   }
+  reasons.push(
+    `Intent: ${member.rechargeIntent} (${member.callingNeed} calls, priority: ${member.priority}) · fit ${currentFit} → ${recommendedFit}.`
+  );
 
   const snap: MemberCurrentPlanSnapshot = {
     name: member.name,
     provider: member.provider,
+    rechargeIntent: member.rechargeIntent,
+    priority: member.priority,
+    callingNeed: member.callingNeed,
+    needsOtt: member.needsOtt,
     currentPlanPrice: member.currentPlanPrice,
     validityDays,
     planDataPerDay: member.planDataPerDay,
@@ -112,6 +176,16 @@ function optimizeMember(
     name: member.name,
     memberIndex: index,
     currentPlan: snap,
+    verdict: fitDelta >= 6 || savings >= 45 ? "switch_recommended" : "keep_current",
+    currentFitScore: currentFit,
+    recommendedFitScore: recommendedFit,
+    confidence: confidenceFromDiff(fitDelta, savings),
+    wasteBreakdown: {
+      unusedDataCost,
+      overSpecCost,
+      networkPenaltyCost,
+      ottMismatchCost,
+    },
     recommendedPlan: best,
     alternatives: alts,
     savings: Math.round(savings),
@@ -180,10 +254,12 @@ export async function analyzeBudgetFromDb(input: WizardInput): Promise<Optimizat
   const suggestions: string[] = [];
 
   memberOptimizations.forEach((m) => {
-    if (m.recommendedPlan && m.savings >= 50) {
+    if (m.verdict === "switch_recommended" && m.recommendedPlan && m.savings >= 50) {
       suggestions.push(`${m.name}: move toward ${m.recommendedPlan.planId} — about Rs.${m.savings}/mo saved.`);
-    } else if (m.recommendedPlan) {
+    } else if (m.verdict === "switch_recommended" && m.recommendedPlan) {
       suggestions.push(`${m.name}: ${m.recommendedPlan.planId} is a stronger value pick for ${input.city} (savings under Rs.50/mo but better fit).`);
+    } else {
+      suggestions.push(`${m.name}: current recharge is reasonably aligned (fit ${m.currentFitScore}/100). Keep and review next cycle.`);
     }
   });
 
