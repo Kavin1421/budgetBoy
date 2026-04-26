@@ -2,88 +2,2415 @@
   "provider": "Airtel",
   "plans": [
     {
-      "planId": "AIRTEL_155",
+      "planId": "AIRTEL_M_22_1d_1gb",
+      "price": 22,
+      "validityDays": 1,
+      "dataPerDayGB": 1,
+      "totalDataGB": 1,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138657",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138658",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138659",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138678",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138660",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138661",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138662",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138663",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138664",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138665",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138666",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138667",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138669",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138668",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138670",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138671",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138672",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138673",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138674",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1111523",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138675",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138676",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138677",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_26_1d_1_5gb",
+      "price": 26,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138435",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138436",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138437",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138456",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138438",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138439",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138440",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138441",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138442",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138443",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138444",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138445",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138447",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138446",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138448",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138449",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138450",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138451",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138452",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1081853",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138453",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138454",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138455",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_33_1d_2gb",
+      "price": 33,
+      "validityDays": 1,
+      "dataPerDayGB": 2,
+      "totalDataGB": 2,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153319",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153320",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153321",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153340",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153322",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153323",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153324",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153325",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153326",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153327",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153328",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153329",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153331",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153330",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153332",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153333",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153334",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153335",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153336",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153318",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153337",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153338",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1153339",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158758",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158759",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158760",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158779",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158761",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158762",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158763",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158764",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158765",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158766",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158767",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158768",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158770",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158769",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158771",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158772",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158773",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158774",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158775",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158757",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158776",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158777",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1158778",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.0333,
+      "totalDataGB": 1,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_48_30d_1gb",
+      "price": 48,
+      "validityDays": 30,
+      "dataPerDayGB": 0.033,
+      "totalDataGB": 1,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-only",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_77_7d_5gb",
+      "price": 77,
+      "validityDays": 7,
+      "dataPerDayGB": 0.714,
+      "totalDataGB": 5,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138391",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138392",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138393",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138412",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138394",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138395",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138396",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138397",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138398",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138399",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138400",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138401",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138403",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138402",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138404",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138405",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138406",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138407",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138408",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1095672",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138409",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138410",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1138411",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_99_2d_ul",
+      "price": 99,
+      "validityDays": 2,
+      "dataPerDayGB": 99,
+      "totalDataGB": 198,
+      "calls": "Unlimited",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "unlimited-daily",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154156",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154157",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154158",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154177",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154159",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154160",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154161",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154162",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154163",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154164",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154165",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154166",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154168",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154167",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154169",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154170",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154171",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154172",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154173",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_771258",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154174",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154175",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_1154176",
+      "price": 100,
+      "validityDays": 30,
+      "dataPerDayGB": 0.2,
+      "totalDataGB": 6,
+      "calls": "See plan",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_155_28d_1gb",
       "price": 155,
       "validityDays": 28,
       "dataPerDayGB": 1,
       "totalDataGB": 28,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream"],
+      "ottBenefits": [
+        "Airtel Thanks"
+      ],
       "category": "budget",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "AIRTEL_249",
+      "planId": "AIRTEL_M_179_28d",
+      "price": 179,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "budget",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_219_28d_3gb",
+      "price": 219,
+      "validityDays": 28,
+      "dataPerDayGB": 0.107,
+      "totalDataGB": 3,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "budget",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_249_28d_1_5gb",
       "price": 249,
       "validityDays": 28,
       "dataPerDayGB": 1.5,
       "totalDataGB": 42,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream", "Wynk Music"],
+      "ottBenefits": [
+        "Wynk Music"
+      ],
       "category": "popular",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "AIRTEL_299",
-      "price": 299,
+      "planId": "AIRTEL_M_259_28d",
+      "price": 259,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "popular",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_279_28d",
+      "price": 279,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "popular",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_289_28d",
+      "price": 289,
       "validityDays": 28,
       "dataPerDayGB": 2,
       "totalDataGB": 56,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream", "Amazon Prime Mobile"],
+      "ottBenefits": [],
       "category": "mid-range",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "AIRTEL_359",
+      "planId": "AIRTEL_M_298_28d",
+      "price": 298,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_319_30d_1_5gb",
+      "price": 319,
+      "validityDays": 30,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 45,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_359_28d_2_5gb",
       "price": 359,
       "validityDays": 28,
       "dataPerDayGB": 2.5,
       "totalDataGB": 70,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream", "Disney+ Hotstar Mobile"],
+      "ottBenefits": [
+        "Disney+ Hotstar Mobile"
+      ],
       "category": "heavy",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "AIRTEL_499",
+      "planId": "AIRTEL_M_379_30d_2gb",
+      "price": 379,
+      "validityDays": 30,
+      "dataPerDayGB": 2,
+      "totalDataGB": 60,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "5G Access"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_398_28d_2gb_hs",
+      "price": 398,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar Mobile",
+        "5G Access"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_399_28d_2_5gb",
+      "price": 399,
+      "validityDays": 28,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 70,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "5G Access"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_429_30d_2_5gb",
+      "price": 429,
+      "validityDays": 30,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 75,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "5G Access"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_469_84d_voice",
+      "price": 469,
+      "validityDays": 84,
+      "dataPerDayGB": 0,
+      "totalDataGB": 7,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "voice",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_479_28d",
+      "price": 479,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_499_28d",
       "price": 499,
       "validityDays": 28,
       "dataPerDayGB": 3,
       "totalDataGB": 84,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream", "Netflix Mobile", "Amazon Prime"],
+      "ottBenefits": [
+        "Netflix Mobile"
+      ],
       "category": "heavy",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "AIRTEL_FAMILY_1199",
-      "price": 1199,
-      "validityDays": 28,
-      "dataPerDayGB": 2,
-      "totalDataGB": 600,
+      "planId": "AIRTEL_M_509_84d_6gb",
+      "price": 509,
+      "validityDays": 84,
+      "dataPerDayGB": 0.071,
+      "totalDataGB": 6,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream"],
-      "category": "family",
-      "lastUpdated": "2026-01-01"
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "AIRTEL_YEAR_3199",
+      "planId": "AIRTEL_M_549_28d",
+      "price": 549,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Disney+ Hotstar"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_598_28d_2gb_nf",
+      "price": 598,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Netflix",
+        "5G Access"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_619_60d_1_5gb",
+      "price": 619,
+      "validityDays": 60,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 90,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_666_84d",
+      "price": 666,
+      "validityDays": 84,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 126,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_699_84d",
+      "price": 699,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_719_84d",
+      "price": 719,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_799_84d_1_5gb",
+      "price": 799,
+      "validityDays": 84,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 126,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_838_56d_3gb",
+      "price": 838,
+      "validityDays": 56,
+      "dataPerDayGB": 3,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Amazon Prime Lite",
+        "Sony LIV",
+        "5G Access"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_898_84d",
+      "price": 898,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_999_98d_2gb",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1029_84d_2gb_hs",
+      "price": 1029,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar Mobile",
+        "5G Access"
+      ],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1049_84d_2gb",
+      "price": 1049,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "5G Access"
+      ],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1199_84d_2_5gb",
+      "price": 1199,
+      "validityDays": 84,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 210,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Amazon Prime",
+        "5G Access"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1299_84d_2gb",
+      "price": 1299,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1499_365d_24gb",
+      "price": 1499,
+      "validityDays": 365,
+      "dataPerDayGB": 0.066,
+      "totalDataGB": 24,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1699_365d",
+      "price": 1699,
+      "validityDays": 365,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 547.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1798_84d_3gb_nf",
+      "price": 1798,
+      "validityDays": 84,
+      "dataPerDayGB": 3,
+      "totalDataGB": 252,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Netflix",
+        "5G Access"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1849_365d_voice",
+      "price": 1849,
+      "validityDays": 365,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "Unlimited",
+      "smsPerDay": 10,
+      "ottBenefits": [],
+      "category": "voice-yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_1999_365d_24gb",
+      "price": 1999,
+      "validityDays": 365,
+      "dataPerDayGB": 0.066,
+      "totalDataGB": 24,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_2249_365d_30gb",
+      "price": 2249,
+      "validityDays": 365,
+      "dataPerDayGB": 0.082,
+      "totalDataGB": 30,
+      "calls": "Unlimited",
+      "smsPerDay": 10,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_2999_365d_2gb",
+      "price": 2999,
+      "validityDays": 365,
+      "dataPerDayGB": 2,
+      "totalDataGB": 730,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_3199_365d",
       "price": 3199,
       "validityDays": 365,
       "dataPerDayGB": 2,
       "totalDataGB": 730,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["Airtel Xstream", "Wynk Music"],
+      "ottBenefits": [],
       "category": "yearly",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_3599_365d_2gb",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2,
+      "totalDataGB": 730,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "5G Access"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "AIRTEL_M_3999_365d_2_5gb",
+      "price": 3999,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "5G Access"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
     }
   ]
 }

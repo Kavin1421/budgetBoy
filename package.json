@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "sync:plans": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/syncPlans.ts",
+    "generate:telecom-json": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/generateTelecomJsonFromKomparify.ts",
     "migrate:telecom-index": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/migrateTelecomCompoundIndex.ts",
     "test:core-contracts": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/testCoreContracts.ts",
     "check:openapi-contract": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' scripts/checkOpenApiContract.ts"

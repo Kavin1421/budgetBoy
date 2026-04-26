@@ -2,88 +2,2926 @@
   "provider": "Jio",
   "plans": [
     {
-      "planId": "JIO_149",
-      "price": 149,
-      "validityDays": 28,
-      "dataPerDayGB": 1,
-      "totalDataGB": 28,
-      "calls": "Unlimited",
-      "smsPerDay": 100,
-      "ottBenefits": ["JioTV"],
-      "category": "budget",
-      "lastUpdated": "2026-01-01"
+      "planId": "JIO_M_19_1d",
+      "price": 19,
+      "validityDays": 1,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "topup",
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "JIO_199",
+      "planId": "JIO_M_19_1d_1gb",
+      "price": 19,
+      "validityDays": 1,
+      "dataPerDayGB": 1,
+      "totalDataGB": 1,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_22_1d_1gb",
+      "price": 22,
+      "validityDays": 1,
+      "dataPerDayGB": 1,
+      "totalDataGB": 1,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_25_1d_1_5gb",
+      "price": 25,
+      "validityDays": 1,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 1.5,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "data-addon",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_29_1d",
+      "price": 29,
+      "validityDays": 1,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "topup",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147549",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147550",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147551",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147570",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147552",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147553",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147554",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147555",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147556",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147557",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147558",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147559",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147561",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147560",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147562",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147563",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147564",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147565",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147566",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1113436",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147567",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147568",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1147569",
+      "price": 39,
+      "validityDays": 3,
+      "dataPerDayGB": 3,
+      "totalDataGB": 9,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "short-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_49_1d",
+      "price": 49,
+      "validityDays": 1,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "Unlimited",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "voice",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_59_1d",
+      "price": 59,
+      "validityDays": 1,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "Unlimited",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "voice",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_98_14d",
+      "price": 98,
+      "validityDays": 14,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "Unlimited",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "voice",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_101_14d",
+      "price": 101,
+      "validityDays": 14,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "Unlimited",
+      "smsPerDay": 0,
+      "ottBenefits": [],
+      "category": "voice",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159274",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159275",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159276",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159295",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159277",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159278",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159279",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159280",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159281",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159282",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159283",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159284",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159286",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159285",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159287",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159288",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159289",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159290",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159291",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159206",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159292",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159293",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159294",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.3333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar"
+      ],
+      "category": "prepaid",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_149_30d_10gb",
+      "price": 149,
+      "validityDays": 30,
+      "dataPerDayGB": 0.333,
+      "totalDataGB": 10,
+      "calls": "NA",
+      "smsPerDay": 0,
+      "ottBenefits": [
+        "JioHotstar Mobile"
+      ],
+      "category": "data-only",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_179_28d_2gb",
+      "price": 179,
+      "validityDays": 28,
+      "dataPerDayGB": 0.071,
+      "totalDataGB": 2,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "budget",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_195_28d",
+      "price": 195,
+      "validityDays": 28,
+      "dataPerDayGB": 0,
+      "totalDataGB": 0,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "voice",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_199_28d_1_5gb",
       "price": 199,
       "validityDays": 28,
       "dataPerDayGB": 1.5,
       "totalDataGB": 42,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["JioTV", "JioCinema"],
+      "ottBenefits": [
+        "JioTV"
+      ],
       "category": "popular",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "JIO_299",
+      "planId": "JIO_M_209_28d",
+      "price": 209,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "popular",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_219_28d",
+      "price": 219,
+      "validityDays": 28,
+      "dataPerDayGB": 1,
+      "totalDataGB": 28,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "popular",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_239_28d",
+      "price": 239,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "popular",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_249_28d",
+      "price": 249,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioTV",
+        "JioCinema"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_259_28d",
+      "price": 259,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_269_28d",
+      "price": 269,
+      "validityDays": 28,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 42,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_279_28d",
+      "price": 279,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_289_28d",
+      "price": 289,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_299_28d_2gb",
       "price": 299,
       "validityDays": 28,
       "dataPerDayGB": 2,
       "totalDataGB": 56,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["JioTV", "JioCinema", "Netflix Mobile"],
+      "ottBenefits": [
+        "JioTV",
+        "JioCinema"
+      ],
       "category": "mid-range",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "JIO_399",
+      "planId": "JIO_M_319_28d",
+      "price": 319,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_329_28d",
+      "price": 329,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159957",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159958",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159959",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159978",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159960",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159961",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159962",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159963",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159964",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159965",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159966",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159967",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159969",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159968",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159970",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159971",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159972",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159973",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159974",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1081137",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159975",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159976",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1159977",
+      "price": 349,
+      "validityDays": 28,
+      "dataPerDayGB": 2,
+      "totalDataGB": 56,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_399_28d_3gb",
       "price": 399,
       "validityDays": 28,
       "dataPerDayGB": 3,
       "totalDataGB": 84,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["JioTV", "JioCinema", "Amazon Prime Lite"],
+      "ottBenefits": [
+        "JioTV",
+        "JioCinema"
+      ],
       "category": "heavy",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "JIO_599",
-      "price": 599,
+      "planId": "JIO_M_449_28d",
+      "price": 449,
       "validityDays": 28,
       "dataPerDayGB": 3,
       "totalDataGB": 84,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["JioTV", "JioCinema", "Netflix", "Amazon Prime"],
+      "ottBenefits": [],
       "category": "heavy",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "JIO_FAMILY_999",
-      "price": 999,
+      "planId": "JIO_M_479_28d",
+      "price": 479,
       "validityDays": 28,
-      "dataPerDayGB": 2,
-      "totalDataGB": 560,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["JioTV", "JioCinema"],
-      "category": "family",
-      "lastUpdated": "2026-01-01"
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
     },
     {
-      "planId": "JIO_YEAR_2999",
-      "price": 2999,
+      "planId": "JIO_M_499_28d",
+      "price": 499,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Netflix Mobile"
+      ],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_519_28d",
+      "price": 519,
+      "validityDays": 28,
+      "dataPerDayGB": 3,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_533_56d",
+      "price": 533,
+      "validityDays": 56,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_555_56d",
+      "price": 555,
+      "validityDays": 56,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 84,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_567_56d",
+      "price": 567,
+      "validityDays": 56,
+      "dataPerDayGB": 2,
+      "totalDataGB": 112,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_589_56d",
+      "price": 589,
+      "validityDays": 56,
+      "dataPerDayGB": 2,
+      "totalDataGB": 112,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_599_56d",
+      "price": 599,
+      "validityDays": 56,
+      "dataPerDayGB": 2,
+      "totalDataGB": 112,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_629_56d_2gb",
+      "price": 629,
+      "validityDays": 56,
+      "dataPerDayGB": 2,
+      "totalDataGB": 112,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioTV"
+      ],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_666_84d",
+      "price": 666,
+      "validityDays": 84,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 126,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_719_84d",
+      "price": 719,
+      "validityDays": 84,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 126,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_749_84d",
+      "price": 749,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_799_84d",
+      "price": 799,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_859_84d",
+      "price": 859,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160265",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160266",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160267",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160286",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160268",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160269",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160270",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160271",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160272",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160273",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160274",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160275",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160277",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160276",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160278",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160279",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160280",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160281",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160282",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1081295",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160283",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160284",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160285",
+      "price": 899,
+      "validityDays": 90,
+      "dataPerDayGB": 2,
+      "totalDataGB": 200,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_999_84d_2gb",
+      "price": 999,
+      "validityDays": 84,
+      "dataPerDayGB": 2,
+      "totalDataGB": 168,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar Mobile",
+        "Google Gemini Pro"
+      ],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160221",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160222",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160223",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160242",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160224",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160225",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160226",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160227",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160228",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160229",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160230",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160231",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160233",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160232",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160234",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160235",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160236",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160237",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160238",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1104208",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160239",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160240",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160241",
+      "price": 999,
+      "validityDays": 98,
+      "dataPerDayGB": 2,
+      "totalDataGB": 196,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "mid-range",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_1009_120d",
+      "price": 1009,
+      "validityDays": 120,
+      "dataPerDayGB": 2,
+      "totalDataGB": 240,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_1199_84d",
+      "price": 1199,
+      "validityDays": 84,
+      "dataPerDayGB": 3,
+      "totalDataGB": 252,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_1499_84d",
+      "price": 1499,
+      "validityDays": 84,
+      "dataPerDayGB": 3,
+      "totalDataGB": 252,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "heavy",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_1799_365d_1_5gb",
+      "price": 1799,
+      "validityDays": 365,
+      "dataPerDayGB": 1.5,
+      "totalDataGB": 547.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioTV"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_2024_200d",
+      "price": 2024,
+      "validityDays": 200,
+      "dataPerDayGB": 2,
+      "totalDataGB": 400,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "long-validity",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_2399_365d_2gb",
+      "price": 2399,
       "validityDays": 365,
       "dataPerDayGB": 2,
       "totalDataGB": 730,
       "calls": "Unlimited",
       "smsPerDay": 100,
-      "ottBenefits": ["JioTV", "JioCinema"],
+      "ottBenefits": [
+        "JioTV",
+        "JioCinema"
+      ],
       "category": "yearly",
-      "lastUpdated": "2026-01-01"
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_2699_365d_2gb",
+      "price": 2699,
+      "validityDays": 365,
+      "dataPerDayGB": 2,
+      "totalDataGB": 730,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_2999_365d_2_5gb",
+      "price": 2999,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar Mobile"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_3359_365d_3gb",
+      "price": 3359,
+      "validityDays": 365,
+      "dataPerDayGB": 3,
+      "totalDataGB": 1095,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioTV",
+        "JioCinema"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_M_3499_365d_3gb",
+      "price": 3499,
+      "validityDays": 365,
+      "dataPerDayGB": 3,
+      "totalDataGB": 1095,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "Netflix",
+        "JioHotstar Mobile"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160067",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160068",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160069",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160088",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160070",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160071",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160072",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160073",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160074",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160075",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160076",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160077",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160079",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160078",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160080",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160081",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160082",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160083",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160084",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1100046",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160085",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160086",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
+    },
+    {
+      "planId": "JIO_1160087",
+      "price": 3599,
+      "validityDays": 365,
+      "dataPerDayGB": 2.5,
+      "totalDataGB": 912.5,
+      "calls": "Unlimited",
+      "smsPerDay": 100,
+      "ottBenefits": [
+        "JioHotstar",
+        "Hotstar",
+        "Gemini",
+        "JioTV",
+        "JioAICloud"
+      ],
+      "category": "yearly",
+      "lastUpdated": "2026-04-26"
     }
   ]
 }
