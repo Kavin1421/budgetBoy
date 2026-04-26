@@ -5,13 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
-import { LayoutDashboard, Wand2 } from "lucide-react";
+import { LayoutDashboard, Mail, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links: { href: string; label: string; icon?: LucideIcon }[] = [
   { href: "/", label: "Home" },
   { href: "/wizard", label: "Wizard", icon: Wand2 },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/contact", label: "Contact", icon: Mail },
   // { href: "/docs", label: "API v1", icon: BookOpen },
 ];
 

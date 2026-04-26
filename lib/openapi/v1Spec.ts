@@ -13,6 +13,7 @@ export const openApiV1Document = {
     { name: "Telecom", description: "Operator catalog helpers" },
     { name: "Share", description: "Shareable scenario snapshots" },
     { name: "Recommendations", description: "Recommendation feedback and tuning signals" },
+    { name: "Contact", description: "Marketing contact form submissions" },
     { name: "Meta", description: "API discovery" },
   ],
   paths: {
@@ -267,6 +268,41 @@ export const openApiV1Document = {
         },
       },
     },
+    "/api/v1/contact": {
+      post: {
+        tags: ["Contact"],
+        summary: "Submit contact inquiry",
+        description: "Sends an inquiry email to GodevsTeam via configured SMTP credentials.",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ContactInquiryPayload" },
+            },
+          },
+        },
+        responses: {
+          "201": {
+            description: "Inquiry accepted and email sent",
+            headers: { "x-request-id": { schema: { type: "string" } } },
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["success", "message"],
+                  properties: {
+                    success: { type: "boolean", enum: [true] },
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          "400": { $ref: "#/components/responses/BadRequest" },
+          "500": { $ref: "#/components/responses/ServerError" },
+        },
+      },
+    },
     "/api/v1/recommendations/feedback": {
       post: {
         tags: ["Recommendations"],
@@ -355,6 +391,8 @@ export const openApiV1Document = {
                   "ANALYSIS_FAILED",
                   "SHARE_NOT_FOUND",
                   "SHARE_CREATE_FAILED",
+                  "CONTACT_SEND_FAILED",
+                  "SMTP_NOT_CONFIGURED",
                   "RATE_LIMITED",
                   "BOT_BLOCKED",
                 ],
@@ -518,6 +556,15 @@ export const openApiV1Document = {
           action: { type: "string", enum: ["accepted_switch", "dismissed_switch", "kept_current"] },
           city: { type: "string" },
           memberName: { type: "string" },
+        },
+      },
+      ContactInquiryPayload: {
+        type: "object",
+        required: ["name", "email", "message"],
+        properties: {
+          name: { type: "string", minLength: 2, maxLength: 80 },
+          email: { type: "string", format: "email" },
+          message: { type: "string", minLength: 10, maxLength: 2000 },
         },
       },
     },

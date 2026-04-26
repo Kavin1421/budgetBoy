@@ -33,7 +33,7 @@ function takeToken(key: string, limit: number, windowMs: number) {
 export function enforceWriteGuard(
   req: Request,
   ctx: ApiContext,
-  routeKey: "analyze" | "user" | "share" | "recommendation_feedback"
+  routeKey: "analyze" | "user" | "share" | "recommendation_feedback" | "contact"
 ) {
   const userAgent = req.headers.get("user-agent")?.trim();
   if (!userAgent) {
@@ -51,6 +51,8 @@ export function enforceWriteGuard(
       ? { limit: 30, windowMs: 10 * 60 * 1000 }
       : routeKey === "user"
         ? { limit: 50, windowMs: 10 * 60 * 1000 }
+        : routeKey === "contact"
+          ? { limit: 30, windowMs: 10 * 60 * 1000 }
         : routeKey === "recommendation_feedback"
           ? { limit: 120, windowMs: 10 * 60 * 1000 }
           : { limit: 40, windowMs: 10 * 60 * 1000 };

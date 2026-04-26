@@ -99,5 +99,12 @@ export const wizardSchema = z.object({
   income: z.number().nonnegative().optional(),
 });
 
+export const contactInquirySchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(80),
+  email: z.email("Enter a valid email address"),
+  message: z.string().min(10, "Message should be at least 10 characters").max(2000),
+});
+
 export type WizardInput = z.infer<typeof wizardSchema>;
 export type MemberMobileLine = z.infer<typeof memberMobileLineSchema>;
+export type ContactInquiry = z.infer<typeof contactInquirySchema>;

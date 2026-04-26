@@ -12,6 +12,7 @@ import {
   LineChart,
   Lock,
   MapPinned,
+  MessageCircle,
   Quote,
   Radar,
   Sparkles,
@@ -132,6 +133,16 @@ export default function MarketingPage() {
               </Link>
               <Link href="/dashboard" className={cn(buttonVariants({ variant: "secondary", size: "lg" }))}>
                 View dashboard
+              </Link>
+              <Link
+                href="/contact"
+                className={cn(
+                  buttonVariants({ variant: "secondary", size: "lg" }),
+                  "gap-2 border border-white/25 bg-white/10 text-white hover:bg-white/20"
+                )}
+              >
+                Contact GodevsTeam
+                <MessageCircle className="h-4 w-4" />
               </Link>
             </motion.div>
             <motion.p variants={item} className="mt-6 text-sm text-teal-100/90">
@@ -328,13 +339,19 @@ export default function MarketingPage() {
               <p className="text-sm font-semibold uppercase tracking-wide text-indigo-800">Start saving today</p>
               <p className="mt-1 text-lg font-semibold text-gray-900">Takes less than 2 minutes to generate your first savings plan.</p>
             </div>
-            <Link
-              href="/wizard"
-              className={cn(buttonVariants({ size: "lg" }), "shrink-0 gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-slate-900 ring-0")}
-            >
-              Launch wizard
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href="/wizard"
+                className={cn(buttonVariants({ size: "lg" }), "shrink-0 gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-slate-900 ring-0")}
+              >
+                Launch wizard
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/contact" className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "gap-2")}>
+                Contact GodevsTeam
+                <MessageCircle className="h-4 w-4" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
