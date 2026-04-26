@@ -644,7 +644,19 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>No data yet</CardTitle>
           </CardHeader>
-          <CardContent className="text-slate-600">Run the wizard and add at least one member with their line details.</CardContent>
+          <CardContent className="space-y-4 text-slate-600">
+            <p>Run the wizard and add at least one member with their line details.</p>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                className="min-h-11 gap-2"
+                onClick={() => router.push("/wizard")}
+              >
+                Start setup wizard
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
         </Card>
       ) : (
         <>

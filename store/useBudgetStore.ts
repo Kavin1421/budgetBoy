@@ -65,27 +65,7 @@ const initialState: WizardInput & {
 } = {
   mode: "individual",
   city: "Bangalore",
-  members: [
-    {
-      name: "You",
-      provider: "Jio",
-      currentPlanPrice: 299,
-      validity: "28",
-      planDataPerDay: "2GB",
-      actualUsagePerDay: "1GB",
-      lineUsageType: "medium",
-      rechargeIntent: "both-balanced",
-      priority: "balanced",
-      callingNeed: "regular",
-      needsOtt: false,
-      networkConfidence: 3,
-      rechargeFrictionPreference: "medium",
-      dataRolloverRiskWindow: "1-3",
-      hotspotNeeded: false,
-      callQualitySensitivity: "medium",
-      billShockTolerance: "yes",
-    },
-  ],
+  members: [],
   subscriptions: [],
   wifi: { cost: 0, usageType: "moderate" },
   income: undefined,
@@ -95,6 +75,22 @@ const initialState: WizardInput & {
   currentScenarioName: "My family plan",
   lastAnalysis: null,
 };
+
+function isLegacySeededMember(member: WizardInput["members"][number]) {
+  return (
+    member.name === "You" &&
+    member.provider === "Jio" &&
+    member.currentPlanPrice === 299 &&
+    member.validity === "28" &&
+    member.planDataPerDay === "2GB" &&
+    member.actualUsagePerDay === "1GB" &&
+    member.lineUsageType === "medium" &&
+    member.rechargeIntent === "both-balanced" &&
+    member.priority === "balanced" &&
+    member.callingNeed === "regular" &&
+    member.needsOtt === false
+  );
+}
 
 export const useBudgetStore = create<StoreState>()(
   persist(
@@ -200,6 +196,17 @@ export const useBudgetStore = create<StoreState>()(
           shareLinks: Array.isArray(state.shareLinks) ? state.shareLinks : Array.isArray(state.sharedLinks) ? state.sharedLinks : [],
           activeScenarioId: state.activeScenarioId ?? state.activePlaylistId ?? undefined,
           currentScenarioName: state.currentScenarioName ?? state.currentPlaylistName ?? initialState.currentScenarioName,
+          members:
+            Array.isArray(state.members) &&
+            state.members.length === 1 &&
+            isLegacySeededMember(state.members[0] as WizardInput["members"][number]) &&
+            !state.lastAnalysis &&
+            !(Array.isArray(state.scenarios) && state.scenarios.length > 0) &&
+            !(Array.isArray(state.playlists) && state.playlists.length > 0)
+              ? []
+              : Array.isArray(state.members)
+                ? state.members
+                : currentState.members,
         };
       },
     }
