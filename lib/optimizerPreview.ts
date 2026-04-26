@@ -1,6 +1,6 @@
 import type { WizardInput } from "@/utils/validators";
 import type { MemberCurrentPlanSnapshot, MemberOptimizationResult, OptimizationResult, PlanRecommendation } from "@/lib/optimizerTypes";
-import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
+import { monthlyEquivalentFromRecharge, monthlySubscriptionCost } from "@/lib/billingUtils";
 import { getNetworkQuality } from "@/lib/cityNetworkScore";
 import { actualUsageToGB, planDataPerDayToGB } from "@/lib/memberPlanUtils";
 
@@ -13,7 +13,7 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
     (s, m) => s + monthlyEquivalentFromRecharge(m.currentPlanPrice, Number(m.validity) || 28),
     0
   );
-  const subsMonthly = input.subscriptions.reduce((sum, s) => sum + s.cost, 0);
+  const subsMonthly = input.subscriptions.reduce((sum, s) => sum + monthlySubscriptionCost(s.cost, s.billingCycle), 0);
   const wifiMonthly = input.wifi.cost;
   const currentCost = plansMonthly + subsMonthly + wifiMonthly;
 
@@ -58,13 +58,36 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
       currentMonthlyEquivalent: Math.round(currentMonthly * 100) / 100,
     };
 
+    const currentFitScore = Math.max(10, Math.min(100, Math.round(65 - overData * 10 + (net - 5) * 3 + (m.networkConfidence - 3) * 2)));
+    const recommendedFitScore = Math.max(
+      10,
+      Math.min(
+        100,
+        Math.round(
+          70 -
+            overData * 6 +
+            (net - 5) * 3 +
+            (m.networkConfidence - 3) * 2 +
+            (m.rechargeFrictionPreference === "high" ? 4 : 0) +
+            (m.billShockTolerance === "no" ? 3 : 0)
+        )
+      )
+    );
+    const weights = {
+      costFit: 1.7,
+      dataFit: m.hotspotNeeded ? 2.6 : 2.1,
+      networkFit: m.callQualitySensitivity === "high" ? 2.7 : 1.8,
+      validityFit: m.rechargeFrictionPreference === "high" ? 1.9 : 1.1,
+      intentFit: 1.3,
+      riskFit: m.billShockTolerance === "no" ? 2 : 1.2,
+    };
     memberOptimizations.push({
       name: m.name,
       memberIndex: i,
       currentPlan: snap,
       verdict: save >= 30 ? "switch_recommended" : "keep_current",
-      currentFitScore: Math.max(10, Math.min(100, Math.round(65 - overData * 10 + (net - 5) * 3))),
-      recommendedFitScore: Math.max(10, Math.min(100, Math.round(70 - overData * 6 + (net - 5) * 3))),
+      currentFitScore,
+      recommendedFitScore,
       confidence: save >= 70 ? "high" : save >= 30 ? "medium" : "low",
       wasteBreakdown: {
         unusedDataCost,
@@ -77,6 +100,27 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
       savings: save,
       reason: reasons,
       networkScore: net,
+      scoreBreakdown: {
+        weights,
+        current: {
+          costFit: Math.max(0, 100 - Math.round(currentMonthly / 2.1)),
+          dataFit: Math.max(0, 100 - Math.round(overData * 20)),
+          networkFit: Math.round((net / 10) * 100),
+          validityFit: Math.max(0, 100 - Math.abs(validityDays - 56)),
+          intentFit: m.needsOtt ? 75 : 88,
+          riskFit: m.billShockTolerance === "no" ? 70 : 82,
+          total: currentFitScore,
+        },
+        recommended: {
+          costFit: Math.max(0, 100 - Math.round((currentMonthly - save) / 2.1)),
+          dataFit: Math.max(0, 100 - Math.round(overData * 12)),
+          networkFit: Math.round((net / 10) * 100),
+          validityFit: Math.max(0, 100 - Math.abs(validityDays - 56)),
+          intentFit: m.needsOtt ? 82 : 90,
+          riskFit: m.billShockTolerance === "no" ? 78 : 86,
+          total: recommendedFitScore,
+        },
+      },
     });
   });
 
@@ -87,8 +131,9 @@ export function optimizeBudgetPreview(input: WizardInput): Omit<OptimizationResu
 
   input.subscriptions.forEach((sub) => {
     if (!sub.used) {
-      optimizedCost -= sub.cost;
-      suggestions.push(`Cancel unused subscription: ${sub.name} (Rs.${sub.cost}/mo).`);
+      const subMonthly = monthlySubscriptionCost(sub.cost, sub.billingCycle);
+      optimizedCost -= subMonthly;
+      suggestions.push(`Cancel unused subscription: ${sub.name} (about Rs.${Math.round(subMonthly)}/mo).`);
     }
   });
 

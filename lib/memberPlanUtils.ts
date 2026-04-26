@@ -7,6 +7,7 @@ export function planDataPerDayToGB(value: (typeof DATA_PER_DAY)[number]): number
     "1GB": 1,
     "1.5GB": 1.5,
     "2GB": 2,
+    "2.5GB": 2.5,
     "3GB": 3,
   };
   return map[value];
@@ -18,5 +19,6 @@ export function actualUsageToGB(value: (typeof ACTUAL_USAGE_PER_DAY)[number]): n
   if (value === "0.5GB") return 0.5;
   if (value === "1GB") return 1;
   if (value === "1.5GB") return 1.5;
-  return 2.5;
+  if (value === "2GB+") return 2.5;
+  return 0;
 }

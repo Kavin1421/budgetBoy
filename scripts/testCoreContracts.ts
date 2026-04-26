@@ -25,7 +25,7 @@ const fixture = {
       needsOtt: false,
     },
   ],
-  subscriptions: [{ name: "Netflix", cost: 199, used: false }],
+  subscriptions: [{ name: "Netflix", cost: 199, billingCycle: "monthly" as const, used: false }],
   wifi: { cost: 0, usageType: "moderate" as const },
   income: 75000,
 };

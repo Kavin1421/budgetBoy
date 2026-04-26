@@ -9,13 +9,22 @@ import type {
   PlanRecommendation,
 } from "@/lib/optimizerTypes";
 import { dataPerRupee, getBestValuePlan, getTrendingPlans, monthlyEquivalent } from "@/lib/telecomPlanQuery";
-import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
+import { monthlyEquivalentFromRecharge, monthlySubscriptionCost } from "@/lib/billingUtils";
 import { getNetworkQuality } from "@/lib/cityNetworkScore";
 import { actualUsageToGB, planDataPerDayToGB } from "@/lib/memberPlanUtils";
 
 type RecommendationTuning = {
   providerTuning?: Record<string, number>;
   planTuning?: Record<string, number>;
+};
+
+type ScoreWeights = {
+  costFit: number;
+  dataFit: number;
+  networkFit: number;
+  validityFit: number;
+  intentFit: number;
+  riskFit: number;
 };
 
 function intentBaselineUsage(intent: WizardInput["members"][number]["rechargeIntent"]): number {
@@ -50,17 +59,81 @@ function scorePlan(
         : 1;
   const providerBoost = tuning?.providerTuning?.[p.provider] ?? 1;
   const planBoost = tuning?.planTuning?.[p.planId] ?? 1;
-  return (priceW * 2.2 + dataMatch * 1.7 + netW * 1.45 * rightSized) * ottNeed * callNeed * priorityBoost * providerBoost * planBoost;
+  const frictionBoost = member.rechargeFrictionPreference === "high" ? (p.validityDays >= 84 ? 1.08 : 0.95) : member.rechargeFrictionPreference === "low" ? 1.02 : 1;
+  const callQualityBoost = member.callQualitySensitivity === "high" ? 0.9 + netW * 0.18 : 1;
+  const rolloverPenalty =
+    member.dataRolloverRiskWindow === "often" ? (p.dataPerDayGB < usageGB + 0.7 ? 0.8 : 1.05) : member.dataRolloverRiskWindow === "4-8" ? (p.dataPerDayGB < usageGB + 0.4 ? 0.87 : 1.03) : 1;
+  const hotspotBoost = member.hotspotNeeded ? (p.dataPerDayGB >= usageGB + 0.5 ? 1.06 : 0.82) : 1;
+  return (
+    (priceW * 2.2 + dataMatch * 1.7 + netW * 1.45 * rightSized) *
+    ottNeed *
+    callNeed *
+    priorityBoost *
+    frictionBoost *
+    callQualityBoost *
+    rolloverPenalty *
+    hotspotBoost *
+    providerBoost *
+    planBoost
+  );
 }
 
-function fitScore(member: WizardInput["members"][number], dataGB: number, monthly: number, networkScore: number, hasOtt: boolean): number {
+function getScoreWeights(member: WizardInput["members"][number]): ScoreWeights {
+  const w: ScoreWeights = {
+    costFit: 1.7,
+    dataFit: 2.1,
+    networkFit: 1.8,
+    validityFit: 1.1,
+    intentFit: 1.3,
+    riskFit: 1.2,
+  };
+  if (member.rechargeFrictionPreference === "high") w.validityFit += 0.8;
+  if (member.callQualitySensitivity === "high") w.networkFit += 0.9;
+  if (member.billShockTolerance === "no") w.riskFit += 0.8;
+  if (member.hotspotNeeded) w.dataFit += 0.5;
+  return w;
+}
+
+function fitScore(
+  member: WizardInput["members"][number],
+  dataGB: number,
+  monthly: number,
+  validityDays: number,
+  networkScore: number,
+  hasOtt: boolean
+): { total: number; factors: { costFit: number; dataFit: number; networkFit: number; validityFit: number; intentFit: number; riskFit: number }; weights: ScoreWeights } {
   const usageGB = actualUsageToGB(member.actualUsagePerDay);
-  const target = Math.max(usageGB, intentBaselineUsage(member.rechargeIntent));
-  const dataPenalty = Math.min(45, Math.abs(dataGB - target) * 14);
-  const budgetPenalty = member.priority === "lowest-cost" ? Math.min(25, monthly / 20) : Math.min(15, monthly / 28);
-  const networkPenalty = member.priority === "best-network" ? Math.max(0, 9 - networkScore) * 3 : Math.max(0, 7 - networkScore) * 2;
-  const ottPenalty = member.needsOtt && !hasOtt ? 12 : 0;
-  return Math.max(5, Math.min(100, Math.round(100 - dataPenalty - budgetPenalty - networkPenalty - ottPenalty)));
+  const riskHeadroom = member.hotspotNeeded ? 0.7 : 0.4;
+  const target = Math.max(usageGB + (member.dataRolloverRiskWindow === "often" ? 0.6 : member.dataRolloverRiskWindow === "4-8" ? 0.3 : 0), intentBaselineUsage(member.rechargeIntent));
+  const weights = getScoreWeights(member);
+  const costFit = Math.max(0, Math.min(100, Math.round(100 - (member.priority === "lowest-cost" ? Math.min(35, monthly / 16) : Math.min(22, monthly / 24)))));
+  const dataFit = Math.max(0, Math.min(100, Math.round(100 - Math.min(60, Math.abs(dataGB - target) * 22))));
+  const networkFit = Math.max(
+    0,
+    Math.min(100, Math.round((networkScore / 10) * 100 - Math.max(0, (3 - Math.min(member.networkConfidence, 3)) * 6)))
+  );
+  const validityTarget = member.rechargeFrictionPreference === "high" ? 84 : member.rechargeFrictionPreference === "low" ? 28 : 56;
+  const validityFit = Math.max(0, Math.min(100, Math.round(100 - Math.min(45, Math.abs(validityDays - validityTarget) / 2.5))));
+  const intentPenalty = member.needsOtt && !hasOtt ? 20 : 0;
+  const intentFit = Math.max(0, Math.min(100, Math.round(100 - intentPenalty - (member.callingNeed === "unlimited-needed" ? 6 : 0))));
+  let riskPenalty = dataGB < usageGB + riskHeadroom ? 28 : 8;
+  if (member.billShockTolerance === "no") riskPenalty += 12;
+  if (member.dataRolloverRiskWindow === "often") riskPenalty += 10;
+  const riskFit = Math.max(0, Math.min(100, Math.round(100 - riskPenalty)));
+
+  const totalWeight = Object.values(weights).reduce((s, n) => s + n, 0);
+  const weighted =
+    costFit * weights.costFit +
+    dataFit * weights.dataFit +
+    networkFit * weights.networkFit +
+    validityFit * weights.validityFit +
+    intentFit * weights.intentFit +
+    riskFit * weights.riskFit;
+  return {
+    total: Math.max(5, Math.min(100, Math.round(weighted / totalWeight))),
+    factors: { costFit, dataFit, networkFit, validityFit, intentFit, riskFit },
+    weights,
+  };
 }
 
 function confidenceFromDiff(diff: number, savings: number): "high" | "medium" | "low" {
@@ -124,20 +197,23 @@ function optimizeMember(
     .slice(0, 2);
 
   const reasons: string[] = [];
-  const currentFit = fitScore(member, planGB, currentMonthly, net, false);
+  const currentFit = fitScore(member, planGB, currentMonthly, validityDays, net, false);
   const recommendedFit = best
     ? fitScore(
         member,
         best.dataPerDayGB,
         monthlyEquivalent(best),
+        best.validityDays,
         getNetworkQuality(city, best.provider),
         best.ottBenefits.length > 0
       )
     : currentFit;
-  const fitDelta = recommendedFit - currentFit;
+  const fitDelta = recommendedFit.total - currentFit.total;
 
   const unusedDataCost = Math.round(Math.max(0, currentMonthly * Math.min(0.4, (planGB - usageGB) * 0.12)));
-  const overSpecCost = Math.round(Math.max(0, currentMonthly * (validityDays > 84 ? 0.06 : 0)));
+  const overSpecCost = Math.round(
+    Math.max(0, currentMonthly * (validityDays > 84 && member.rechargeFrictionPreference !== "high" ? 0.06 : 0))
+  );
   const networkPenaltyCost = Math.round(Math.max(0, (7 - net) * 6));
   const ottMismatchCost = member.needsOtt && (!best || best.ottBenefits.length === 0) ? Math.round(currentMonthly * 0.05) : 0;
 
@@ -161,7 +237,10 @@ function optimizeMember(
     reasons.push("No catalog match that clearly beats your current line — prices may already be optimal for this usage.");
   }
   reasons.push(
-    `Intent: ${member.rechargeIntent} (${member.callingNeed} calls, priority: ${member.priority}) · fit ${currentFit} → ${recommendedFit}.`
+    `Intent: ${member.rechargeIntent} (${member.callingNeed} calls, priority: ${member.priority}) · fit ${currentFit.total} → ${recommendedFit.total}.`
+  );
+  reasons.push(
+    `Advanced tuning: network confidence ${member.networkConfidence}/5, recharge friction ${member.rechargeFrictionPreference}, rollover risk ${member.dataRolloverRiskWindow}.`
   );
 
   const snap: MemberCurrentPlanSnapshot = {
@@ -186,8 +265,8 @@ function optimizeMember(
     memberIndex: index,
     currentPlan: snap,
     verdict: fitDelta >= 6 || savings >= 45 ? "switch_recommended" : "keep_current",
-    currentFitScore: currentFit,
-    recommendedFitScore: recommendedFit,
+    currentFitScore: currentFit.total,
+    recommendedFitScore: recommendedFit.total,
     confidence: confidenceFromDiff(fitDelta, savings),
     wasteBreakdown: {
       unusedDataCost,
@@ -200,6 +279,11 @@ function optimizeMember(
     savings: Math.round(savings),
     reason: reasons,
     networkScore: net,
+    scoreBreakdown: {
+      weights: currentFit.weights,
+      current: { ...currentFit.factors, total: currentFit.total },
+      recommended: { ...recommendedFit.factors, total: recommendedFit.total },
+    },
   };
 }
 
@@ -244,7 +328,7 @@ export async function analyzeBudgetFromDb(input: WizardInput, tuning?: Recommend
     (s, m) => s + monthlyEquivalentFromRecharge(m.currentPlanPrice, Number(m.validity) || 28),
     0
   );
-  const subsMonthly = input.subscriptions.reduce((sum, x) => sum + x.cost, 0);
+  const subsMonthly = input.subscriptions.reduce((sum, x) => sum + monthlySubscriptionCost(x.cost, x.billingCycle), 0);
   const wifiMonthly = input.wifi.cost;
   const currentCost = plansMonthly + subsMonthly + wifiMonthly;
   let optimizedCost = currentCost - telecomSavings;
@@ -297,8 +381,9 @@ export async function analyzeBudgetFromDb(input: WizardInput, tuning?: Recommend
 
   input.subscriptions.forEach((sub) => {
     if (!sub.used) {
-      optimizedCost -= sub.cost;
-      suggestions.push(`Cancel unused subscription: ${sub.name} (Rs.${sub.cost}/mo).`);
+      const subMonthly = monthlySubscriptionCost(sub.cost, sub.billingCycle);
+      optimizedCost -= subMonthly;
+      suggestions.push(`Cancel unused subscription: ${sub.name} (about Rs.${Math.round(subMonthly)}/mo).`);
     }
   });
 

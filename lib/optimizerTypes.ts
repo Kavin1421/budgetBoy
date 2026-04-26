@@ -50,6 +50,34 @@ export type MemberOptimizationResult = {
   savings: number;
   reason: string[];
   networkScore: number;
+  scoreBreakdown?: {
+    weights: {
+      costFit: number;
+      dataFit: number;
+      networkFit: number;
+      validityFit: number;
+      intentFit: number;
+      riskFit: number;
+    };
+    current: {
+      costFit: number;
+      dataFit: number;
+      networkFit: number;
+      validityFit: number;
+      intentFit: number;
+      riskFit: number;
+      total: number;
+    };
+    recommended: {
+      costFit: number;
+      dataFit: number;
+      networkFit: number;
+      validityFit: number;
+      intentFit: number;
+      riskFit: number;
+      total: number;
+    };
+  };
 };
 
 export type OptimizationResult = {

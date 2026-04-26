@@ -1,9 +1,13 @@
 import { z } from "zod";
 import {
+  BILL_SHOCK_TOLERANCE,
   CALLING_NEEDS,
+  CALL_QUALITY_SENSITIVITY,
+  DATA_ROLLOVER_RISK_WINDOWS,
   INDIAN_CITIES,
   MEMBER_PRIORITIES,
   MEMBER_RECHARGE_INTENTS,
+  RECHARGE_FRICTION_PREFERENCES,
 } from "@/utils/constants";
 import {
   memberMobileLineSchema,
@@ -66,6 +70,46 @@ function normalizeMember(
     priority,
     callingNeed,
     needsOtt,
+    networkConfidence:
+      Number.isFinite((member as Partial<WizardInput["members"][number]>).networkConfidence) &&
+      Number((member as Partial<WizardInput["members"][number]>).networkConfidence) >= 1 &&
+      Number((member as Partial<WizardInput["members"][number]>).networkConfidence) <= 5
+        ? Number((member as Partial<WizardInput["members"][number]>).networkConfidence)
+        : 3,
+    rechargeFrictionPreference: RECHARGE_FRICTION_PREFERENCES.includes(
+      (member as Partial<WizardInput["members"][number]>).rechargeFrictionPreference as (typeof RECHARGE_FRICTION_PREFERENCES)[number]
+    )
+      ? ((member as WizardInput["members"][number]).rechargeFrictionPreference as (typeof RECHARGE_FRICTION_PREFERENCES)[number])
+      : "medium",
+    dataRolloverRiskWindow: DATA_ROLLOVER_RISK_WINDOWS.includes(
+      (member as Partial<WizardInput["members"][number]>).dataRolloverRiskWindow as (typeof DATA_ROLLOVER_RISK_WINDOWS)[number]
+    )
+      ? ((member as WizardInput["members"][number]).dataRolloverRiskWindow as (typeof DATA_ROLLOVER_RISK_WINDOWS)[number])
+      : "1-3",
+    hotspotNeeded:
+      typeof (member as Partial<WizardInput["members"][number]>).hotspotNeeded === "boolean"
+        ? Boolean((member as WizardInput["members"][number]).hotspotNeeded)
+        : false,
+    callQualitySensitivity: CALL_QUALITY_SENSITIVITY.includes(
+      (member as Partial<WizardInput["members"][number]>).callQualitySensitivity as (typeof CALL_QUALITY_SENSITIVITY)[number]
+    )
+      ? ((member as WizardInput["members"][number]).callQualitySensitivity as (typeof CALL_QUALITY_SENSITIVITY)[number])
+      : "medium",
+    billShockTolerance: BILL_SHOCK_TOLERANCE.includes(
+      (member as Partial<WizardInput["members"][number]>).billShockTolerance as (typeof BILL_SHOCK_TOLERANCE)[number]
+    )
+      ? ((member as WizardInput["members"][number]).billShockTolerance as (typeof BILL_SHOCK_TOLERANCE)[number])
+      : "yes",
+  };
+}
+
+function normalizeSubscription(
+  sub: WizardStoreSlice["subscriptions"][number]
+): WizardInput["subscriptions"][number] {
+  const billingCycle = (sub as Partial<WizardInput["subscriptions"][number]>).billingCycle;
+  return {
+    ...sub,
+    billingCycle: billingCycle === "yearly" ? "yearly" : "monthly",
   };
 }
 
@@ -82,7 +126,7 @@ export function normalizeWizardFromStore(state: WizardStoreSlice): WizardInput {
     mode: state.mode,
     city: state.city,
     members: state.members.map(normalizeMember),
-    subscriptions: state.subscriptions,
+    subscriptions: state.subscriptions.map(normalizeSubscription),
     wifi: {
       ...state.wifi,
       cost: wifiCost,

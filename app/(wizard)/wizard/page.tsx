@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import confetti from "canvas-confetti";
@@ -12,19 +12,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
+import { PlanSearchDropdown } from "@/components/PlanSearchDropdown";
 import { MemberForm } from "@/components/MemberForm";
 import { SubscriptionForm } from "@/components/SubscriptionForm";
 import { WizardRail } from "@/components/wizard/WizardRail";
 import { useBudgetStore } from "@/store/useBudgetStore";
 import {
   ACTUAL_USAGE_PER_DAY,
+  BILL_SHOCK_TOLERANCE,
   CALLING_NEEDS,
+  CALL_QUALITY_SENSITIVITY,
   DATA_PER_DAY,
+  DATA_ROLLOVER_RISK_WINDOWS,
   INDIAN_CITIES,
   MEMBER_LINE_USAGE,
   MEMBER_PRIORITIES,
   MEMBER_RECHARGE_INTENTS,
   PROVIDERS,
+  RECHARGE_FRICTION_PREFERENCES,
+  SUBSCRIPTION_BILLING_CYCLES,
   VALIDITIES,
   WIFI_USAGE_TYPES,
 } from "@/utils/constants";
@@ -38,6 +44,28 @@ const panelVariants = {
   animate: { opacity: 1, y: 0, filter: "blur(0px)" },
   exit: { opacity: 0, y: -14, filter: "blur(4px)" },
 };
+
+function mapPlanDataPerDayToEnum(gb: number): (typeof DATA_PER_DAY)[number] | null {
+  if (gb <= 0) return "No data";
+  if (Math.abs(gb - 1) < 0.001) return "1GB";
+  if (Math.abs(gb - 1.5) < 0.001) return "1.5GB";
+  if (Math.abs(gb - 2) < 0.001) return "2GB";
+  if (Math.abs(gb - 2.5) < 0.001) return "2.5GB";
+  if (Math.abs(gb - 3) < 0.001) return "3GB";
+  return null;
+}
+
+function dedupePlans<T extends { planId: string; price: number; validityDays: number; dataPerDayGB: number; totalDataGB?: number }>(plans: T[]) {
+  const byFingerprint = new Map<string, T>();
+  for (const p of plans) {
+    const key = `${p.price}|${p.validityDays}|${p.dataPerDayGB}|${p.totalDataGB ?? 0}`;
+    const existing = byFingerprint.get(key);
+    if (!existing || p.planId.localeCompare(existing.planId) < 0) {
+      byFingerprint.set(key, p);
+    }
+  }
+  return [...byFingerprint.values()];
+}
 
 async function readErrorMessage(res: Response): Promise<string> {
   try {
@@ -69,13 +97,64 @@ async function readErrorMessage(res: Response): Promise<string> {
   return res.status === 400 ? "Invalid data sent to the server." : `Request failed (${res.status}).`;
 }
 
+function memberConfidence(member: MemberMobileLine, selectedPlanId: string, loadingPlans: boolean): { level: "Low" | "Medium" | "High"; score: number } {
+  let score = 35;
+  if (member.name.trim().length >= 2) score += 15;
+  if (selectedPlanId) score += 15;
+  if (member.actualUsagePerDay !== "No data") score += 10;
+  if (member.networkConfidence >= 1 && member.networkConfidence <= 5) score += 10;
+  if (member.dataRolloverRiskWindow !== "1-3") score += 5;
+  if (member.hotspotNeeded) score += 5;
+  if (member.callQualitySensitivity !== "medium") score += 5;
+  if (member.billShockTolerance === "no") score += 5;
+  if (loadingPlans) score = Math.max(30, score - 10);
+  return { level: score >= 75 ? "High" : score >= 55 ? "Medium" : "Low", score: Math.min(100, score) };
+}
+
+function confidenceTone(level: "Low" | "Medium" | "High") {
+  if (level === "High") {
+    return {
+      container: "border-emerald-200 bg-emerald-50/70",
+      badge: "bg-emerald-100 text-emerald-900 border-emerald-200",
+      bar: "bg-emerald-500",
+      sub: "text-emerald-800",
+    };
+  }
+  if (level === "Medium") {
+    return {
+      container: "border-amber-200 bg-amber-50/70",
+      badge: "bg-amber-100 text-amber-900 border-amber-200",
+      bar: "bg-amber-500",
+      sub: "text-amber-800",
+    };
+  }
+  return {
+    container: "border-rose-200 bg-rose-50/70",
+    badge: "bg-rose-100 text-rose-900 border-rose-200",
+    bar: "bg-rose-500",
+    sub: "text-rose-800",
+  };
+}
+
 export default function WizardPage() {
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [editingMemberIndex, setEditingMemberIndex] = useState<number | null>(null);
   const [editingMember, setEditingMember] = useState<MemberMobileLine | null>(null);
+  const [editingShowAdvancedTuning, setEditingShowAdvancedTuning] = useState(false);
+  const [editingSelectedPlanId, setEditingSelectedPlanId] = useState("");
+  const [editingProviderPlans, setEditingProviderPlans] = useState<
+    Array<{ planId: string; price: number; validityDays: number; dataPerDayGB: number; ottBenefits: string[] }>
+  >([]);
+  const [loadingEditingPlans, setLoadingEditingPlans] = useState(false);
+  const [editingPlanError, setEditingPlanError] = useState<string | null>(null);
   const [editingSubscriptionIndex, setEditingSubscriptionIndex] = useState<number | null>(null);
-  const [editingSubscription, setEditingSubscription] = useState<{ name: string; cost: number; used: boolean } | null>(null);
+  const [editingSubscription, setEditingSubscription] = useState<{
+    name: string;
+    cost: number;
+    billingCycle: (typeof SUBSCRIPTION_BILLING_CYCLES)[number];
+    used: boolean;
+  } | null>(null);
   const router = useRouter();
   const store = useBudgetStore();
   const optimization = store.getOptimization();
@@ -166,11 +245,117 @@ export default function WizardPage() {
   const startMemberEdit = (index: number) => {
     setEditingMemberIndex(index);
     setEditingMember({ ...store.members[index] });
+    setEditingShowAdvancedTuning(false);
+    setEditingSelectedPlanId("");
+    setEditingProviderPlans([]);
+    setEditingPlanError(null);
   };
 
   const cancelMemberEdit = () => {
     setEditingMemberIndex(null);
     setEditingMember(null);
+    setEditingShowAdvancedTuning(false);
+    setEditingSelectedPlanId("");
+    setEditingProviderPlans([]);
+    setEditingPlanError(null);
+  };
+
+  const editingCompatiblePlans = useMemo(() => {
+    const validValidity = new Set<string>(VALIDITIES);
+    const filtered = editingProviderPlans.filter(
+      (p) => validValidity.has(String(p.validityDays)) && mapPlanDataPerDayToEnum(p.dataPerDayGB) !== null
+    );
+    return dedupePlans(filtered);
+  }, [editingProviderPlans]);
+
+  const editingPlanOptions = useMemo(
+    () =>
+      editingCompatiblePlans.map((p) => ({
+        value: p.planId,
+        label: `${p.planId} - Rs.${p.price} / ${p.validityDays}d / ${p.dataPerDayGB}GB-day`,
+      })),
+    [editingCompatiblePlans]
+  );
+
+  const editingValidityOptions = useMemo(() => {
+    const fromPlans = [...new Set(editingCompatiblePlans.map((p) => String(p.validityDays)))].sort((a, b) => Number(a) - Number(b));
+    return fromPlans.length ? fromPlans : [...VALIDITIES];
+  }, [editingCompatiblePlans]);
+
+  const editingDataPerDayOptions = useMemo(() => {
+    const fromPlans = [
+      ...new Set(
+        editingCompatiblePlans
+          .map((p) => mapPlanDataPerDayToEnum(p.dataPerDayGB))
+          .filter((v): v is (typeof DATA_PER_DAY)[number] => Boolean(v))
+      ),
+    ];
+    const order = new Map(DATA_PER_DAY.map((v, i) => [v, i]));
+    fromPlans.sort((a, b) => (order.get(a) ?? 0) - (order.get(b) ?? 0));
+    return fromPlans.length ? fromPlans : [...DATA_PER_DAY];
+  }, [editingCompatiblePlans]);
+
+  useEffect(() => {
+    if (!editingMember) return;
+    const controller = new AbortController();
+    const loadPlans = async () => {
+      setLoadingEditingPlans(true);
+      setEditingPlanError(null);
+      try {
+        const res = await fetch(`/api/v1/telecom/plans?provider=${encodeURIComponent(editingMember.provider)}`, { signal: controller.signal });
+        if (!res.ok) throw new Error(`Failed to load plans (${res.status})`);
+        const body = (await res.json()) as {
+          plans?: Array<{
+            planId: string;
+            price: number;
+            validityDays: number;
+            dataPerDayGB: number;
+            ottBenefits?: string[];
+          }>;
+          data?: {
+            plans?: Array<{
+              planId: string;
+              price: number;
+              validityDays: number;
+              dataPerDayGB: number;
+              ottBenefits?: string[];
+            }>;
+          };
+        };
+        const plans = (body.plans ?? body.data?.plans ?? []).map((p) => ({
+          planId: p.planId,
+          price: Number(p.price) || 0,
+          validityDays: Number(p.validityDays) || 0,
+          dataPerDayGB: Number(p.dataPerDayGB) || 0,
+          ottBenefits: p.ottBenefits ?? [],
+        }));
+        setEditingProviderPlans(plans);
+      } catch (e) {
+        if (controller.signal.aborted) return;
+        setEditingProviderPlans([]);
+        setEditingPlanError(e instanceof Error ? e.message : "Failed to load plans");
+      } finally {
+        if (!controller.signal.aborted) setLoadingEditingPlans(false);
+      }
+    };
+    void loadPlans();
+    return () => controller.abort();
+  }, [editingMember?.provider, editingMember]);
+
+  const applyEditingPlan = (planId: string) => {
+    if (!editingMember) return;
+    setEditingSelectedPlanId(planId);
+    const plan = editingCompatiblePlans.find((p) => p.planId === planId);
+    if (!plan) return;
+    const mappedData = mapPlanDataPerDayToEnum(plan.dataPerDayGB);
+    if (!mappedData) return;
+    setEditingMember({
+      ...editingMember,
+      currentPlanPrice: plan.price,
+      validity: String(plan.validityDays) as (typeof VALIDITIES)[number],
+      planDataPerDay: mappedData,
+      needsOtt: plan.ottBenefits.length > 0 ? true : editingMember.needsOtt,
+    });
   };
 
   const saveMemberEdit = () => {
@@ -187,7 +372,8 @@ export default function WizardPage() {
 
   const startSubscriptionEdit = (index: number) => {
     setEditingSubscriptionIndex(index);
-    setEditingSubscription({ ...store.subscriptions[index] });
+    const sub = store.subscriptions[index];
+    setEditingSubscription({ ...sub, billingCycle: sub.billingCycle ?? "monthly" });
   };
 
   const cancelSubscriptionEdit = () => {
@@ -200,6 +386,7 @@ export default function WizardPage() {
     const parsed = wizardSchema.shape.subscriptions.element.safeParse({
       name: editingSubscription.name.trim(),
       cost: editingSubscription.cost,
+      billingCycle: editingSubscription.billingCycle,
       used: editingSubscription.used,
     });
     if (!parsed.success) {
@@ -354,7 +541,30 @@ export default function WizardPage() {
                               </div>
                               {editingMemberIndex === i && editingMember && (
                                 <div className="mt-2 rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+                                  {(() => {
+                                    const conf = memberConfidence(editingMember, editingSelectedPlanId, loadingEditingPlans);
+                                    const tone = confidenceTone(conf.level);
+                                    return (
+                                      <>
                                   <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-emerald-800">Edit member</p>
+                                  <div className={`mb-2 rounded-lg border px-2 py-2 ${tone.container}`}>
+                                    <div className="flex items-center justify-between gap-2">
+                                      <p className="text-xs font-semibold text-slate-900">Recommendation confidence</p>
+                                      <span className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold ${tone.badge}`}>
+                                        <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                                        {conf.level} ({conf.score}/100)
+                                      </span>
+                                    </div>
+                                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/80">
+                                      <div
+                                        className={`h-full rounded-full transition-[width,background-color] duration-500 ease-out motion-reduce:transition-none ${tone.bar}`}
+                                        style={{ width: `${conf.score}%` }}
+                                      />
+                                    </div>
+                                    <p className={`mt-1 text-[11px] ${tone.sub}`}>
+                                      Better confidence comes from real usage + selected plan + advanced tuning details.
+                                    </p>
+                                  </div>
                                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                     <div className="sm:col-span-2">
                                       <Label>Name</Label>
@@ -367,14 +577,32 @@ export default function WizardPage() {
                                       <Label>Provider</Label>
                                       <Select
                                         value={editingMember.provider}
-                                        onChange={(e) =>
-                                          setEditingMember({ ...editingMember, provider: e.target.value as (typeof PROVIDERS)[number] })
-                                        }
+                                        onChange={(e) => {
+                                          setEditingMember({ ...editingMember, provider: e.target.value as (typeof PROVIDERS)[number] });
+                                          setEditingSelectedPlanId("");
+                                        }}
                                       >
                                         {PROVIDERS.map((p) => (
                                           <option key={p}>{p}</option>
                                         ))}
                                       </Select>
+                                    </div>
+                                    <div className="sm:col-span-2 lg:col-span-3">
+                                      <Label>Current plan (from catalog)</Label>
+                                      <PlanSearchDropdown
+                                        value={editingSelectedPlanId}
+                                        onChange={applyEditingPlan}
+                                        options={editingPlanOptions}
+                                        disabled={loadingEditingPlans || editingPlanOptions.length === 0}
+                                        placeholder="Select current plan"
+                                        loadingLabel="Loading plans..."
+                                        emptyLabel="No matching plans"
+                                      />
+                                      <p className="mt-1 text-xs text-slate-500">
+                                        Using {editingMember.provider} catalog plans from DB ({editingCompatiblePlans.length} unique plans from{" "}
+                                        {editingProviderPlans.length} records).
+                                      </p>
+                                      {editingPlanError ? <p className="mt-1 text-xs text-amber-700">{editingPlanError}</p> : null}
                                     </div>
                                     <div>
                                       <Label>Recharge (₹)</Label>
@@ -398,7 +626,7 @@ export default function WizardPage() {
                                           setEditingMember({ ...editingMember, validity: e.target.value as (typeof VALIDITIES)[number] })
                                         }
                                       >
-                                        {VALIDITIES.map((v) => (
+                                        {editingValidityOptions.map((v) => (
                                           <option key={v} value={v}>
                                             {v} days
                                           </option>
@@ -416,7 +644,7 @@ export default function WizardPage() {
                                           })
                                         }
                                       >
-                                        {DATA_PER_DAY.map((d) => (
+                                        {editingDataPerDayOptions.map((d) => (
                                           <option key={d}>{d}</option>
                                         ))}
                                       </Select>
@@ -518,7 +746,134 @@ export default function WizardPage() {
                                       />
                                       <Label htmlFor={`edit-needs-ott-${i}`}>Needs OTT benefits</Label>
                                     </div>
+                                    <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4">
+                                      <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3">
+                                        <div className="flex flex-wrap items-center justify-between gap-2">
+                                          <div>
+                                            <p className="text-sm font-semibold text-slate-900">Advanced tuning</p>
+                                            <p className="text-xs text-slate-500">Optional inputs to improve plan-fit confidence and stability.</p>
+                                          </div>
+                                          <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            className="min-w-44"
+                                            onClick={() => setEditingShowAdvancedTuning((v) => !v)}
+                                          >
+                                            {editingShowAdvancedTuning ? "Hide options" : "Show options"}
+                                          </Button>
+                                        </div>
+                                        {editingShowAdvancedTuning ? (
+                                          <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                                            <div>
+                                              <Label>Local network confidence</Label>
+                                              <Select
+                                                value={String(editingMember.networkConfidence)}
+                                                onChange={(e) =>
+                                                  setEditingMember({ ...editingMember, networkConfidence: Number(e.target.value) || 3 })
+                                                }
+                                              >
+                                                <option value="1">1 - Poor</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3 - Okay</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5 - Excellent</option>
+                                              </Select>
+                                            </div>
+                                            <div>
+                                              <Label>Prefer fewer recharges</Label>
+                                              <Select
+                                                value={editingMember.rechargeFrictionPreference}
+                                                onChange={(e) =>
+                                                  setEditingMember({
+                                                    ...editingMember,
+                                                    rechargeFrictionPreference: e.target.value as (typeof RECHARGE_FRICTION_PREFERENCES)[number],
+                                                  })
+                                                }
+                                              >
+                                                {RECHARGE_FRICTION_PREFERENCES.map((v) => (
+                                                  <option key={v} value={v}>
+                                                    {v}
+                                                  </option>
+                                                ))}
+                                              </Select>
+                                            </div>
+                                            <div>
+                                              <Label>Run out of data early</Label>
+                                              <Select
+                                                value={editingMember.dataRolloverRiskWindow}
+                                                onChange={(e) =>
+                                                  setEditingMember({
+                                                    ...editingMember,
+                                                    dataRolloverRiskWindow: e.target.value as (typeof DATA_ROLLOVER_RISK_WINDOWS)[number],
+                                                  })
+                                                }
+                                              >
+                                                {DATA_ROLLOVER_RISK_WINDOWS.map((v) => (
+                                                  <option key={v} value={v}>
+                                                    {v} days/mo
+                                                  </option>
+                                                ))}
+                                              </Select>
+                                            </div>
+                                            <div>
+                                              <Label>Call quality sensitivity</Label>
+                                              <Select
+                                                value={editingMember.callQualitySensitivity}
+                                                onChange={(e) =>
+                                                  setEditingMember({
+                                                    ...editingMember,
+                                                    callQualitySensitivity: e.target.value as (typeof CALL_QUALITY_SENSITIVITY)[number],
+                                                  })
+                                                }
+                                              >
+                                                {CALL_QUALITY_SENSITIVITY.map((v) => (
+                                                  <option key={v} value={v}>
+                                                    {v}
+                                                  </option>
+                                                ))}
+                                              </Select>
+                                            </div>
+                                            <div>
+                                              <Label>Occasional top-up tolerance</Label>
+                                              <Select
+                                                value={editingMember.billShockTolerance}
+                                                onChange={(e) =>
+                                                  setEditingMember({
+                                                    ...editingMember,
+                                                    billShockTolerance: e.target.value as (typeof BILL_SHOCK_TOLERANCE)[number],
+                                                  })
+                                                }
+                                              >
+                                                {BILL_SHOCK_TOLERANCE.map((v) => (
+                                                  <option key={v} value={v}>
+                                                    {v}
+                                                  </option>
+                                                ))}
+                                              </Select>
+                                            </div>
+                                            <div className="flex items-end">
+                                              <label
+                                                htmlFor={`edit-hotspot-needed-${i}`}
+                                                className="flex w-full items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700"
+                                              >
+                                                <input
+                                                  id={`edit-hotspot-needed-${i}`}
+                                                  type="checkbox"
+                                                  checked={editingMember.hotspotNeeded}
+                                                  onChange={(e) => setEditingMember({ ...editingMember, hotspotNeeded: e.target.checked })}
+                                                />
+                                                Uses hotspot/tethering
+                                              </label>
+                                            </div>
+                                          </div>
+                                        ) : null}
+                                      </div>
+                                    </div>
                                   </div>
+                                      </>
+                                    );
+                                  })()}
                                   <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
                                     <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={cancelMemberEdit}>
                                       Cancel
@@ -578,7 +933,7 @@ export default function WizardPage() {
                               <motion.div key={`${s.name}-${i}`} layout initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
                                 <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/90 px-3 py-2 text-sm">
                                   <span className="min-w-0 flex-1 break-words">
-                                    {s.name} · Rs.{s.cost} · {s.used ? "Used" : "Unused"}
+                                    {s.name} · Rs.{s.cost}/{s.billingCycle === "yearly" ? "yr" : "mo"} · {s.used ? "Used" : "Unused"}
                                   </span>
                                   <div className="flex items-center gap-1">
                                     <Button variant="ghost" size="sm" onClick={() => startSubscriptionEdit(i)}>
@@ -601,7 +956,7 @@ export default function WizardPage() {
                                         />
                                       </div>
                                       <div>
-                                        <Label>Monthly Cost</Label>
+                                        <Label>Cost</Label>
                                         <Input
                                           type="number"
                                           min={1}
@@ -613,6 +968,24 @@ export default function WizardPage() {
                                             })
                                           }
                                         />
+                                      </div>
+                                      <div>
+                                        <Label>Billing</Label>
+                                        <Select
+                                          value={editingSubscription.billingCycle}
+                                          onChange={(e) =>
+                                            setEditingSubscription({
+                                              ...editingSubscription,
+                                              billingCycle: e.target.value as (typeof SUBSCRIPTION_BILLING_CYCLES)[number],
+                                            })
+                                          }
+                                        >
+                                          {SUBSCRIPTION_BILLING_CYCLES.map((cycle) => (
+                                            <option key={cycle} value={cycle}>
+                                              {cycle}
+                                            </option>
+                                          ))}
+                                        </Select>
                                       </div>
                                       <div className="flex items-end gap-2 text-sm">
                                         <input

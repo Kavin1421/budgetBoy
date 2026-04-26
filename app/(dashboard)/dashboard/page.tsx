@@ -44,7 +44,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { monthlyEquivalentFromRecharge } from "@/lib/billingUtils";
+import { monthlyEquivalentFromRecharge, monthlySubscriptionCost } from "@/lib/billingUtils";
 import { optimizeBudgetPreview } from "@/lib/optimizerPreview";
 import { monthlyEquivalent } from "@/lib/telecomPlanQuery";
 import type { MemberOptimizationResult, OptimizationResult } from "@/lib/optimizerTypes";
@@ -69,6 +69,19 @@ function normalizeMemberRows(rows: MemberOptimizationResult[]): MemberOptimizati
       overSpecCost: row.wasteBreakdown?.overSpecCost ?? 0,
       networkPenaltyCost: row.wasteBreakdown?.networkPenaltyCost ?? 0,
       ottMismatchCost: row.wasteBreakdown?.ottMismatchCost ?? 0,
+    },
+    scoreBreakdown: row.scoreBreakdown ?? {
+      weights: { costFit: 1.7, dataFit: 2.1, networkFit: 1.8, validityFit: 1.1, intentFit: 1.3, riskFit: 1.2 },
+      current: { costFit: 60, dataFit: 60, networkFit: 60, validityFit: 60, intentFit: 60, riskFit: 60, total: row.currentFitScore ?? 60 },
+      recommended: {
+        costFit: 65,
+        dataFit: 65,
+        networkFit: 65,
+        validityFit: 65,
+        intentFit: 65,
+        riskFit: 65,
+        total: row.recommendedFitScore ?? row.currentFitScore ?? 60,
+      },
     },
   }));
 }
@@ -198,7 +211,10 @@ export default function DashboardPage() {
     () => dashboardData.members.reduce((sum, m) => sum + monthlyEquivalentFromRecharge(m.currentPlanPrice, Number(m.validity) || 28), 0),
     [dashboardData.members]
   );
-  const subsCost = useMemo(() => dashboardData.subscriptions.reduce((sum, s) => sum + s.cost, 0), [dashboardData.subscriptions]);
+  const subsCost = useMemo(
+    () => dashboardData.subscriptions.reduce((sum, s) => sum + monthlySubscriptionCost(s.cost, s.billingCycle), 0),
+    [dashboardData.subscriptions]
+  );
 
   const memberRows: MemberOptimizationResult[] = useMemo(
     () => normalizeMemberRows(result.memberOptimizations?.length ? result.memberOptimizations : []),
@@ -1094,6 +1110,19 @@ export default function DashboardPage() {
                           <p>Network mismatch: Rs.{row.wasteBreakdown.networkPenaltyCost}</p>
                           <p>OTT mismatch: Rs.{row.wasteBreakdown.ottMismatchCost}</p>
                         </div>
+                        {row.scoreBreakdown && (
+                          <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3">
+                            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Score factors (current → recommended)</p>
+                            <div className="grid gap-1 text-xs text-slate-700 md:grid-cols-3">
+                              <p>Cost fit: {row.scoreBreakdown.current.costFit} → {row.scoreBreakdown.recommended.costFit}</p>
+                              <p>Data fit: {row.scoreBreakdown.current.dataFit} → {row.scoreBreakdown.recommended.dataFit}</p>
+                              <p>Network fit: {row.scoreBreakdown.current.networkFit} → {row.scoreBreakdown.recommended.networkFit}</p>
+                              <p>Validity fit: {row.scoreBreakdown.current.validityFit} → {row.scoreBreakdown.recommended.validityFit}</p>
+                              <p>Intent fit: {row.scoreBreakdown.current.intentFit} → {row.scoreBreakdown.recommended.intentFit}</p>
+                              <p>Risk fit: {row.scoreBreakdown.current.riskFit} → {row.scoreBreakdown.recommended.riskFit}</p>
+                            </div>
+                          </div>
+                        )}
                         {row.reason.length > 0 && (
                           <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3">
                             <p className="mb-2 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-slate-500">

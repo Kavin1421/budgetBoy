@@ -1,13 +1,18 @@
 import { z } from "zod";
 import {
   ACTUAL_USAGE_PER_DAY,
+  BILL_SHOCK_TOLERANCE,
   CALLING_NEEDS,
+  CALL_QUALITY_SENSITIVITY,
+  DATA_ROLLOVER_RISK_WINDOWS,
   DATA_PER_DAY,
   INDIAN_CITIES,
   MEMBER_LINE_USAGE,
   MEMBER_PRIORITIES,
   MEMBER_RECHARGE_INTENTS,
   PROVIDERS,
+  RECHARGE_FRICTION_PREFERENCES,
+  SUBSCRIPTION_BILLING_CYCLES,
   VALIDITIES,
   WIFI_USAGE_TYPES,
 } from "@/utils/constants";
@@ -26,6 +31,12 @@ export const memberMobileLineSchema = z
     priority: z.enum(MEMBER_PRIORITIES),
     callingNeed: z.enum(CALLING_NEEDS),
     needsOtt: z.boolean(),
+    networkConfidence: z.number().int().min(1).max(5).default(3),
+    rechargeFrictionPreference: z.enum(RECHARGE_FRICTION_PREFERENCES).default("medium"),
+    dataRolloverRiskWindow: z.enum(DATA_ROLLOVER_RISK_WINDOWS).default("1-3"),
+    hotspotNeeded: z.boolean().default(false),
+    callQualitySensitivity: z.enum(CALL_QUALITY_SENSITIVITY).default("medium"),
+    billShockTolerance: z.enum(BILL_SHOCK_TOLERANCE).default("yes"),
   })
   .superRefine((m, ctx) => {
     const planGb = planDataPerDayToGB(m.planDataPerDay);
@@ -58,11 +69,19 @@ export const memberMobileLineSchema = z
         path: ["callingNeed"],
       });
     }
+    if (m.hotspotNeeded && m.lineUsageType === "calls-only") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Hotspot need conflicts with calls-only line profile. Choose light/medium/heavy profile.",
+        path: ["lineUsageType"],
+      });
+    }
   });
 
 export const subscriptionSchema = z.object({
   name: z.string().min(1, "Subscription name is required"),
   cost: z.number().positive("Subscription cost must be greater than 0"),
+  billingCycle: z.enum(SUBSCRIPTION_BILLING_CYCLES).default("monthly"),
   used: z.boolean().default(true),
 });
 
